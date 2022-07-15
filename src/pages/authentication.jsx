@@ -35,6 +35,7 @@ const AuthPage = () => {
                     >
                         Register
                     </Typography>
+                    <Divider />
                     <TextField
                         color="primary"
                         placeholder="Jon Due"
@@ -85,6 +86,7 @@ const AuthPage = () => {
                     >
                         Login
                     </Typography>
+                    <Divider />
                     <TextField
                         color="primary"
                         placeholder="Enter your username"
