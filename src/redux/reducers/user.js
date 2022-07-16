@@ -1,9 +1,9 @@
-const userReducer = (state = [], action) => {
+const userReducer = (state = {}, action) => {
     switch (action.type) {
         case "CREATE_USER":
-            return state.concat(action.payload);
+            return state = action.payload;
         case "DELETE_USER":
-            return state = [];
+            return state = {};
         default:
             return state;
     }
