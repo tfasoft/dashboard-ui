@@ -1,4 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import { logoutUser } from "../redux/actions/session";
+import { deleteUser } from "../redux/actions/user";
 
 import {
     AppBar,
@@ -10,10 +14,10 @@ import {
     Link,
 } from "@mui/material";
 
-import { logoutUser } from "../redux/actions/session";
-
 const NavBar = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
+
     const isAuth = useSelector(state => state.session);
 
     return (
@@ -27,16 +31,12 @@ const NavBar = () => {
                         <Typography
                             variant="h6"
                             sx={{
+                                cursor: "pointer",
                                 flexGrow: 1,
                             }}
+                            onClick={() => history.push('/')}
                         >
-                            <Link
-                                href="/"
-                                underline="none"
-                                color="inherit"
-                            >
-                                TFA Dashboard
-                            </Link>
+                            TFA Dashboard
                         </Typography>
                         {
                             isAuth
@@ -44,7 +44,10 @@ const NavBar = () => {
                                 <Button
                                     variant="contained"
                                     color="info"
-                                    onClick={() => dispatch(logoutUser())}
+                                    onClick={() => {
+                                        dispatch(logoutUser());
+                                        dispatch(deleteUser());
+                                    }}
                                     disableElevation
                                 >
                                     Logout
