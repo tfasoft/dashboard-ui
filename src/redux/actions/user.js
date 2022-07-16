@@ -4,3 +4,9 @@ export const createUser = (user) => {
         payload: user,
     }
 }
+
+export const deleteUser = () => {
+    return {
+        type: "DELETE_USER",
+    }
+}
