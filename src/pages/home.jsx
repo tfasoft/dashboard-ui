@@ -37,13 +37,15 @@ const HomePage = () => {
                     item
                     sx={{
                         textAlign: "center",
+                        // alignItems: "center",
+                        // justifyContent: "center"
                     }}
                     xs={6}
                 >
                     <img
                         src={require("../images/tfa-logo.png")}
                         alt="TFA logo"
-                        height="100%"
+                        height="25%"
                     />
                 </Grid>
             </Grid>
