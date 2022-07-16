@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
     Box,
@@ -22,7 +24,15 @@ import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
 
 const PanelPage = () => {
+    const history = useHistory();
+
     const [tab, setTab] = useState('1');
+
+    const isAuth = useSelector(state => state.session);
+
+    if (!isAuth) {
+        history.push('/auth')
+    }
 
     const changeTab = (event, newValue) => {
         setTab(newValue);
