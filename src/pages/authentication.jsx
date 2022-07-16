@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import Axios from "axios";
+
 import { createUser } from "../redux/actions/user";
 import { logoinUser } from "../redux/actions/session";
 
@@ -12,6 +14,8 @@ import {
     Divider,
     TextField,
     Button,
+    Snackbar,
+    Alert,
 } from "@mui/material";
 
 const AuthPage = () => {
@@ -26,17 +30,31 @@ const AuthPage = () => {
 
     const [login, setLogin] = useState(true);
 
-    const [email, setEmail] = useState([]);
+    const [name, setName] = useState([]);
+    const [username, setUsername] = useState([]);
     const [password, setPassword] = useState([]);
 
+    const [error, setError] = useState(false);
+
+    const [errorBar, setErrorBar] = useState(false);
+
     const authUser = () => {
-        const user = {
-            email,
+        const userData = {
+            username,
             password
         };
 
-        dispatch(createUser(user));
-        dispatch(logoinUser());
+        Axios.post('http://localhost:5000/login', userData)
+            .then((data) => {
+                dispatch(createUser(data.data.user));
+                dispatch(logoinUser());
+            })
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    setError(true);
+                    setErrorBar(true);
+                }
+            });
     }
 
     return (
@@ -69,6 +87,9 @@ const AuthPage = () => {
                         </Typography>
                         <Divider />
                         {
+                            error && <Typography>{error}</Typography>
+                        }
+                        {
                             !login
                             &&
                             <TextField
@@ -78,6 +99,8 @@ const AuthPage = () => {
                                 size="small"
                                 margin="normal"
                                 type="text"
+                                error={error}
+                                onChange={(e) => setName(e.target.value)}
                                 fullWidth
                             />
                         }
@@ -88,7 +111,8 @@ const AuthPage = () => {
                             size="small"
                             margin="normal"
                             type="text"
-                            onChange={(e) => setEmail(e.target.value)}
+                            error={error}
+                            onChange={(e) => setUsername(e.target.value)}
                             fullWidth
                         />
                         <TextField
@@ -98,6 +122,7 @@ const AuthPage = () => {
                             size="small"
                             margin="normal"
                             type="password"
+                            error={error}
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
@@ -139,6 +164,12 @@ const AuthPage = () => {
                     }}
                 ></Grid>
             </Grid>
+
+            <Snackbar open={errorBar} autoHideDuration={6000} onClose={() => setErrorBar(false)}>
+                <Alert onClose={() => setErrorBar(false)} severity="error">
+                    Sorry, user is not found.
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
