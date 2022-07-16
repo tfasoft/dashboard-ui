@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+
 import {
     AppBar,
     Box,
@@ -8,7 +10,12 @@ import {
     Link,
 } from "@mui/material";
 
+import { logoutUser } from "../redux/actions/session";
+
 const NavBar = () => {
+    const dispatch = useDispatch();
+    const isAuth = useSelector(state => state.session);
+
     return (
         <Box>
             <AppBar
@@ -31,14 +38,27 @@ const NavBar = () => {
                                 TFA Dashboard
                             </Link>
                         </Typography>
-                        <Button
-                            variant="contained"
-                            color="info"
-                            href="/auth"
-                            disableElevation
-                        >
-                            Login
-                        </Button>
+                        {
+                            isAuth
+                            ?
+                                <Button
+                                    variant="contained"
+                                    color="info"
+                                    onClick={() => dispatch(logoutUser())}
+                                    disableElevation
+                                >
+                                    Logout
+                                </Button>
+                            :
+                                <Button
+                                    variant="contained"
+                                    color="info"
+                                    href="/auth"
+                                    disableElevation
+                                >
+                                    Login
+                                </Button>
+                        }
                     </Toolbar>
                 </Container>
             </AppBar>
