@@ -20,7 +20,8 @@ let store = createStore(
 );
 
 store.subscribe(() => saveState({
-    user: store.getState().user
+    user: store.getState().user,
+    session: store.getState().session,
 }))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
