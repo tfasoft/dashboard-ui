@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { createUser } from "../redux/actions/user";
+import { logoinUser } from "../redux/actions/session";
 
 import {
     Box,
@@ -10,6 +14,21 @@ import {
 } from "@mui/material";
 
 const LoginTab = () => {
+    const dispatch = useDispatch();
+
+    const [email, setEmail] = useState([]);
+    const [password, setPassword] = useState([]);
+
+    const authUser = () => {
+        const user = {
+            email,
+            password
+        };
+
+        dispatch(createUser(user));
+        dispatch(logoinUser());
+    }
+
     return (
         <Box>
             <Typography
@@ -27,6 +46,7 @@ const LoginTab = () => {
                 size="small"
                 margin="normal"
                 type="text"
+                onChange={(e) => setEmail(e.target.value)}
                 fullWidth
             />
             <TextField
@@ -35,7 +55,8 @@ const LoginTab = () => {
                 label="Password"
                 size="small"
                 margin="normal"
-                type="text"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
                 fullWidth
             />
             <br />
@@ -44,6 +65,7 @@ const LoginTab = () => {
                 variant="contained"
                 color="primary"
                 size="large"
+                onClick={() => authUser()}
                 disableElevation
                 fullWidth
             >
