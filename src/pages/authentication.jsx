@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { createUser } from "../redux/actions/user";
 import { logoinUser } from "../redux/actions/session";
@@ -129,6 +130,14 @@ const RegisterTab = () => {
 }
 
 const AuthPage = () => {
+    const history = useHistory();
+
+    const isAuth = useSelector(state => state.session);
+
+    if (isAuth) {
+        history.push('/panel')
+    }
+
     const [login, setLogin] = useState(true);
 
     return (
