@@ -18,6 +18,7 @@ import { useState } from "react";
 
 const AccountTab = () => {
     const [agree, setAgree] = useState(false);
+    const [accessToken, setAccessToken] = useState('lMdmPudOYFfoIoBKGvsHgOMsX')
 
     return (
         <Box>
@@ -40,7 +41,7 @@ const AccountTab = () => {
                                 label="Access token"
                                 size="small"
                                 type="text"
-                                value="Hello"
+                                value={accessToken}
                                 margin="none"
                                 sx={{ flex: 1 }}
                                 fullWidth
