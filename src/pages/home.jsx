@@ -43,6 +43,7 @@ const HomePage = () => {
                     xs={6}
                 >
                     <img
+                        className={'tfa_logo'}
                         src={require("../images/tfa-logo.png")}
                         alt="TFA logo"
                         height="25%"
