@@ -1,17 +1,6 @@
-const loginUser = (user) => {
+export const createUser = (user) => {
     return {
-        type: "LOGIN_USER",
+        type: "CREATE_USER",
         payload: user,
     }
-}
-
-const logoutUser = () => {
-    return {
-        type: "LOGOUT_USER",
-    }
-}
-
-export default {
-    loginUser,
-    logoutUser
 }
