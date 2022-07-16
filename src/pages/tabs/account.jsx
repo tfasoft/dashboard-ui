@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { useState } from "react";
+
 import {
     Box,
     Typography,
@@ -14,11 +17,10 @@ import {
 } from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
-import { useState } from "react";
 
 const AccountTab = () => {
     const [agree, setAgree] = useState(false);
-    const [accessToken, setAccessToken] = useState('lMdmPudOYFfoIoBKGvsHgOMsX')
+    const [accessToken, setAccessToken] = useState(useSelector(state => state.user.access_token));
 
     return (
         <Box>
