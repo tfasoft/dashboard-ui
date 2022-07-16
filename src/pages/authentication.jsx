@@ -14,8 +14,17 @@ import {
     Button,
 } from "@mui/material";
 
-const LoginTab = () => {
+const AuthPage = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
+
+    const isAuth = useSelector(state => state.session);
+
+    if (isAuth) {
+        history.push('/panel')
+    }
+
+    const [login, setLogin] = useState(true);
 
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
@@ -29,116 +38,6 @@ const LoginTab = () => {
         dispatch(createUser(user));
         dispatch(logoinUser());
     }
-
-    return (
-        <Box>
-            <Typography
-                variant="h4"
-                color="primary"
-                gutterBottom
-            >
-                Login
-            </Typography>
-            <Divider />
-            <TextField
-                color="primary"
-                placeholder="Enter your username"
-                label="Username"
-                size="small"
-                margin="normal"
-                type="text"
-                onChange={(e) => setEmail(e.target.value)}
-                fullWidth
-            />
-            <TextField
-                color="primary"
-                placeholder="Enter password!"
-                label="Password"
-                size="small"
-                margin="normal"
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                fullWidth
-            />
-            <br />
-            <br />
-            <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={() => authUser()}
-                disableElevation
-                fullWidth
-            >
-                Login
-            </Button>
-        </Box>
-    );
-}
-
-const RegisterTab = () => {
-    return (
-        <Box>
-            <Typography
-                variant="h4"
-                color="primary"
-                gutterBottom
-            >
-                Register
-            </Typography>
-            <Divider />
-            <TextField
-                color="primary"
-                placeholder="Jon Due"
-                label="Name"
-                size="small"
-                margin="normal"
-                type="text"
-                fullWidth
-            />
-            <TextField
-                color="primary"
-                placeholder="Pick a username"
-                label="Username"
-                size="small"
-                margin="normal"
-                type="text"
-                fullWidth
-            />
-            <TextField
-                color="primary"
-                placeholder="Hard password!"
-                label="Password"
-                size="small"
-                margin="normal"
-                type="text"
-                fullWidth
-            />
-            <br />
-            <br />
-            <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                disableElevation
-                fullWidth
-            >
-                Register
-            </Button>
-        </Box>
-    );
-}
-
-const AuthPage = () => {
-    const history = useHistory();
-
-    const isAuth = useSelector(state => state.session);
-
-    if (isAuth) {
-        history.push('/panel')
-    }
-
-    const [login, setLogin] = useState(true);
 
     return (
         <Box
@@ -160,13 +59,61 @@ const AuthPage = () => {
                     }}
                     xs={6}
                 >
-                    {
-                        login
-                        ?
-                        <LoginTab />
-                        :
-                        <RegisterTab />
-                    }
+                    <Box>
+                        <Typography
+                            variant="h4"
+                            color="primary"
+                            gutterBottom
+                        >
+                            { login ? 'Login' : 'Register' }
+                        </Typography>
+                        <Divider />
+                        {
+                            !login
+                            &&
+                            <TextField
+                                color="primary"
+                                placeholder="Jon Due"
+                                label="Name"
+                                size="small"
+                                margin="normal"
+                                type="text"
+                                fullWidth
+                            />
+                        }
+                        <TextField
+                            color="primary"
+                            placeholder="Enter your username"
+                            label="Username"
+                            size="small"
+                            margin="normal"
+                            type="text"
+                            onChange={(e) => setEmail(e.target.value)}
+                            fullWidth
+                        />
+                        <TextField
+                            color="primary"
+                            placeholder="Enter password!"
+                            label="Password"
+                            size="small"
+                            margin="normal"
+                            type="password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            fullWidth
+                        />
+                        <br />
+                        <br />
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            onClick={() => authUser()}
+                            disableElevation
+                            fullWidth
+                        >
+                            { login ? 'Login' : 'Register' }
+                        </Button>
+                    </Box>
                     <br />
                     <Button
                         variant="outlined"
