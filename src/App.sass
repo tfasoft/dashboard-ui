@@ -1,2 +1,13 @@
 body
-    background: #f4fcfc
+  background: #f4fcfc
+
+@media (prefers-reduced-motion: no-preference)
+  .tfa_logo
+    &:hover
+      animation: App-logo-spin infinite 5s linear
+
+@keyframes App-logo-spin
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)
