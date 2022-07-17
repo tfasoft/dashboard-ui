@@ -21,6 +21,7 @@ import {
     Home,
     Settings,
     Security,
+    Person,
 } from "@mui/icons-material";
 
 import LoadingBox from "../components/loading";
