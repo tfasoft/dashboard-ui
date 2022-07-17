@@ -22,6 +22,7 @@ let store = createStore(
 store.subscribe(() => saveState({
     user: store.getState().user,
     session: store.getState().session,
+    uid: store.getState().uid,
 }))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
