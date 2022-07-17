@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 
 import Axios from "axios";
 
+import { createUser } from "../redux/actions/user";
+
 import {
     Box,
     Tab,
@@ -21,10 +23,11 @@ import {
     Security,
 } from "@mui/icons-material";
 
+import LoadingBox from "../components/loading";
+
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
-import {createUser} from "../redux/actions/user";
 
 const PanelPage = () => {
     const history = useHistory();
@@ -39,6 +42,8 @@ const PanelPage = () => {
     }
 
     const uid = useSelector(state => state.uid);
+
+    const user = useSelector(state => state.user);
 
     useEffect(() => {
         const send = {
@@ -88,13 +93,31 @@ const PanelPage = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <HomeTab />
+                    {
+                        user._id === undefined
+                        ?
+                            <LoadingBox />
+                        :
+                            <HomeTab />
+                    }
                 </TabPanel>
                 <TabPanel value="2">
-                    <SettingsTab />
+                    {
+                        user._id === undefined
+                            ?
+                            <LoadingBox />
+                            :
+                            <SettingsTab />
+                    }
                 </TabPanel>
                 <TabPanel value="3">
-                    <AccountTab />
+                    {
+                        user._id === undefined
+                            ?
+                            <LoadingBox />
+                            :
+                            <AccountTab />
+                    }
                 </TabPanel>
             </TabContext>
         </Box>
