@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
+
 import {
     Box,
     Card,
     CardContent,
     CardHeader,
-    Grid,
     Typography,
 } from "@mui/material";
 
@@ -18,6 +19,8 @@ import {
 } from "@mui/lab";
 
 const HomeTab = () => {
+    const user = useSelector(state => state.user);
+
     return (
         <Box>
             <Typography
@@ -25,7 +28,7 @@ const HomeTab = () => {
                 color="primary"
                 gutterBottom
             >
-                Home
+                Welcome {user.name}!
             </Typography>
             <Typography
                 variant="h5"
