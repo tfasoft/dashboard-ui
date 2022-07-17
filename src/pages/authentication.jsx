@@ -180,7 +180,7 @@ const AuthPage = () => {
                     item
                     xs={6}
                     sx={{
-                        backgroundColor: "#2074D4"
+                        backgroundColor: "#17a2f2"
                     }}
                 ></Grid>
             </Grid>
