@@ -9,7 +9,15 @@ import {
 
 import TwoInRow from "../../components/panelrowitem";
 
+import { logoutUser } from "../../redux/actions/session";
+import { unsetUID } from "../../redux/actions/uid";
+import { deleteUser } from "../../redux/actions/user";
+
+import { useDispatch } from "react-redux";
+
 const SettingsTab = () => {
+    const dispatch = useDispatch();
+
     return (
         <Box>
             <TwoInRow
@@ -157,6 +165,11 @@ const SettingsTab = () => {
                             variant="contained"
                             color="error"
                             size="medium"
+                            onClick={() => {
+                                dispatch(logoutUser());
+                                dispatch(unsetUID());
+                                dispatch(deleteUser());
+                            }}
                             disableElevation
                         >
                             Logout
