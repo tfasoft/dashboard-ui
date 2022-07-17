@@ -10,6 +10,8 @@ import {
     Button,
     Divider,
     Checkbox,
+    Snackbar,
+    Alert
 } from "@mui/material";
 
 import {
@@ -20,6 +22,10 @@ import TwoInRow from "../../components/panelrowitem";
 
 const AccountTab = () => {
     const [agree, setAgree] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const [password, setPassword] = useState('');
+
     const [accessToken, setAccessToken] = useState(useSelector(state => state.user.access_token));
 
     return (
@@ -49,7 +55,13 @@ const AccountTab = () => {
                                 fullWidth
                                 disabled
                             />
-                            <IconButton color="primary">
+                            <IconButton
+                                color="primary"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(accessToken);
+                                    setCopied(true);
+                                }}
+                            >
                                 <CopyAll />
                             </IconButton>
                         </Box>
@@ -79,6 +91,7 @@ const AccountTab = () => {
                             size="small"
                             type="password"
                             margin="none"
+                            onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
                         <FormControlLabel
@@ -97,7 +110,7 @@ const AccountTab = () => {
                             color="error"
                             disableElevation
                             disabled={
-                                agree ? false : true
+                                !agree
                             }
                         >
                             Delete my account
@@ -105,6 +118,12 @@ const AccountTab = () => {
                     </Box>
                 }
             />
+
+            <Snackbar open={copied} autoHideDuration={6000} onClose={() => setCopied(false)}>
+                <Alert onClose={() => setCopied(false)} severity="info">
+                    Accrss token copied in clipboard
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
