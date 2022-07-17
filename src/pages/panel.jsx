@@ -56,7 +56,7 @@ const PanelPage = () => {
             })
             .catch((error) => {
                 console.log(error.message);
-            })
+            });
     }, [uid]);
 
     const changeTab = (event, newValue) => {
