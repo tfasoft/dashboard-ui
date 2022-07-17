@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import Axios from "axios";
 
-import { createUser } from "../redux/actions/user";
+import { setUID } from "../redux/actions/uid";
 import { logoinUser } from "../redux/actions/session";
 
 import {
@@ -46,7 +46,7 @@ const AuthPage = () => {
 
         Axios.post('http://localhost:5000/login', userData)
             .then((data) => {
-                dispatch(createUser(data.data.user));
+                dispatch(setUID(data.data.id));
                 dispatch(logoinUser());
             })
             .catch((error) => {
@@ -66,7 +66,7 @@ const AuthPage = () => {
 
         Axios.post('http://localhost:5000/register', userData)
             .then((data) => {
-                dispatch(createUser(data.data.user));
+                dispatch(setUID(data.data.user.id));
                 dispatch(logoinUser());
             })
             .catch((error) => {
