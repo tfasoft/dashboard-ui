@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import { logoutUser } from "../redux/actions/session";
 import { deleteUser } from "../redux/actions/user";
+import { unsetUID } from "../redux/actions/uid";
 
 import {
     AppBar,
@@ -46,6 +47,7 @@ const NavBar = () => {
                                     color="info"
                                     onClick={() => {
                                         dispatch(logoutUser());
+                                        dispatch(unsetUID());
                                         dispatch(deleteUser());
                                     }}
                                     disableElevation
