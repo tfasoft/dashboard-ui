@@ -9,8 +9,13 @@ import {
 
 import {
     Security,
-    Settings
+    Settings,
+    CopyAll
 } from "@mui/icons-material";
+
+import {
+    Masonry
+} from "@mui/lab";
 
 const HomeTab = () => {
     return (
@@ -28,15 +33,11 @@ const HomeTab = () => {
             >
                 Here are some helps you may need!
             </Typography>
-            <Grid
-                columns={{ xs: 6, md: 12 }}
+            <Masonry
                 spacing={2}
-                container
+                columns={{ xs: 1, sm: 1, md: 2 }}
             >
-                <Grid
-                    xs={6}
-                    item
-                >
+                <Box>
                     <Card
                         variant="outlined"
                     >
@@ -50,13 +51,16 @@ const HomeTab = () => {
                             >
                                 If you want to get your Access token, head over to <Typography component="span" color="primary"><Security /> Account</Typography> and there will be your access token.
                             </Typography>
+                            <Typography
+                                color="text.secondary"
+                                paragraph
+                            >
+                                Click on <Typography component="span" color="primary"><CopyAll /> Copy</Typography> icon and the access token will be copied to your clipboard.
+                            </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
-                <Grid
-                    xs={6}
-                    item
-                >
+                </Box>
+                <Box>
                     <Card
                         variant="outlined"
                     >
@@ -72,8 +76,8 @@ const HomeTab = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
-            </Grid>
+                </Box>
+            </Masonry>
         </Box>
     );
 }
