@@ -4,7 +4,7 @@ import {
     TextField,
     Button,
     Divider,
-    Grid,
+    Grid, Select, MenuItem,
 } from "@mui/material";
 
 import TwoInRow from "../../components/panelrowitem";
@@ -13,10 +13,13 @@ import { logoutUser } from "../../redux/actions/session";
 import { unsetUID } from "../../redux/actions/uid";
 import { deleteUser } from "../../redux/actions/user";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {setTheme} from "../../redux/actions/theme";
 
 const SettingsTab = () => {
     const dispatch = useDispatch();
+
+    const theme = useSelector(state => state.theme);
 
     return (
         <Box>
@@ -142,6 +145,37 @@ const SettingsTab = () => {
                                 </Button>
                             </Grid>
                         </Grid>
+                    </Box>
+                }
+            />
+            <Box>
+                <br />
+                <Divider />
+                <br />
+            </Box>
+            <TwoInRow
+                title={
+                    <Typography
+                        color="primary"
+                        variant="h4"
+                    >
+                        Change theme
+                    </Typography>
+                }
+                content={
+                    <Box>
+                        <Select
+                            variant="outlined"
+                            value={theme}
+                            label="Color"
+                            size="medium"
+                            color="primary"
+                            onChange={(e) => dispatch(setTheme(e.target.value))}
+                            fullWidth
+                        >
+                            <MenuItem value='light'>Light</MenuItem>
+                            <MenuItem value='dark'>Dark</MenuItem>
+                        </Select>
                     </Box>
                 }
             />
