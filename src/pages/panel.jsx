@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import Axios from "axios";
 
 import {
     Box,
@@ -22,9 +24,11 @@ import {
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
+import {createUser} from "../redux/actions/user";
 
 const PanelPage = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const [tab, setTab] = useState('1');
 
@@ -33,6 +37,22 @@ const PanelPage = () => {
     if (!isAuth) {
         history.push('/auth')
     }
+
+    const uid = useSelector(state => state.uid);
+
+    useEffect(() => {
+        const send = {
+            uid,
+        }
+
+        Axios.post('http://localhost:5000/get/admin', send)
+            .then((data) => {
+                dispatch(createUser(data.data));
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }, [uid]);
 
     const changeTab = (event, newValue) => {
         setTab(newValue);
