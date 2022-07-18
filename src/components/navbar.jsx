@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 import { logoutUser } from "../redux/actions/session";
 import { deleteUser } from "../redux/actions/user";
@@ -12,7 +13,6 @@ import {
     Container,
     Toolbar,
     Typography,
-    Link,
 } from "@mui/material";
 
 const NavBar = () => {
@@ -21,6 +21,9 @@ const NavBar = () => {
     const location = useLocation();
 
     const isAuth = useSelector(state => state.session);
+    const user = useSelector(state => state.user);
+
+    const [menuOpen, setMenuOpen] = useState(false);
 
     return (
         <Box>
