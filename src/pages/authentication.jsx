@@ -180,9 +180,10 @@ const AuthPage = () => {
                     item
                     xs={6}
                     sx={{
-                        backgroundColor: "#17a2f2"
+                        backgroundColor: "primary.main"
                     }}
-                ></Grid>
+                >
+                </Grid>
             </Grid>
 
             <Snackbar open={errorBar} autoHideDuration={6000} onClose={() => setErrorBar(false)}>
