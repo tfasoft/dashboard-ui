@@ -1,7 +1,7 @@
 {
-  "name": "tfa-react-dashboard",
+  "name": "tfa-dashboard-frontend",
   "version": "0.1.0",
-  "private": true,
+  "description": "Telegram factor authentication dashboard frontend.",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -27,6 +27,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tele-fa/dashboard-frontend.git"
+  },
+  "author": "Amirhossein Mohammadi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tele-fa/dashboard-frontend/issues"
   },
   "eslintConfig": {
     "extends": [
