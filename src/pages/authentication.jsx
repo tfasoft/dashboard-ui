@@ -66,7 +66,7 @@ const AuthPage = () => {
 
         Axios.post('http://localhost:5000/auth/register', userData)
             .then((data) => {
-                dispatch(setUID(data.data.user.id));
+                dispatch(setUID(data.data.id));
                 dispatch(logoinUser());
             })
             .catch((error) => {
