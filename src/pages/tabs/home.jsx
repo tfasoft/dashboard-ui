@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-
 import { useGetUser } from "../../hooks/getUserHook";
 
 import {
@@ -87,6 +86,30 @@ const HomeTab = () => {
                                     paragraph
                                 >
                                     To change any field or stuff, open <Typography component="span" color="primary"><Settings /> Settings</Typography> and then you can change anything.
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Box>
+                    <Box>
+                        <Card
+                            variant="outlined"
+                            sx={{
+                                borderColor: "primary.main"
+                            }}
+                        >
+                            <CardHeader
+                                title="Change theme"
+                                subheader={<Typography color="error">New update!</Typography>}
+                                sx={{
+                                    color: "primary.main"
+                                }}
+                            />
+                            <CardContent>
+                                <Typography
+                                    color="text.secondary"
+                                    paragraph
+                                >
+                                    Now, changing theme is available in <Typography component="span" color="primary"><Settings /> Settings</Typography> tab.
                                 </Typography>
                             </CardContent>
                         </Card>
