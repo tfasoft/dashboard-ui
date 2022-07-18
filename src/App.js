@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   Box,
@@ -15,8 +14,11 @@ import HomePage from "./pages/home";
 import PanelPage from "./pages/panel";
 import NavBar from "./components/navbar";
 import AuthPage from "./pages/authentication";
+import {envCreate} from "./redux/actions/env";
 
 function App() {
+  const dispatch = useDispatch();
+
   const mode = useSelector(state => state.theme);
 
   const theme = createTheme({
@@ -28,6 +30,8 @@ function App() {
       }
     },
   });
+
+  dispatch(envCreate(process.env));
 
   return (
     <ThemeProvider theme={theme}>
