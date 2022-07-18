@@ -1,3 +1,13 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import Axios from "axios";
+
+import { logoutUser } from "../../redux/actions/session";
+import { unsetUID } from "../../redux/actions/uid";
+import { deleteUser } from "../../redux/actions/user";
+import { setTheme } from "../../redux/actions/theme";
+
 import {
     Box,
     Typography,
@@ -9,16 +19,25 @@ import {
 
 import TwoInRow from "../../components/panelrowitem";
 
-import { logoutUser } from "../../redux/actions/session";
-import { unsetUID } from "../../redux/actions/uid";
-import { deleteUser } from "../../redux/actions/user";
-
-import { useDispatch, useSelector } from "react-redux";
-import {setTheme} from "../../redux/actions/theme";
-
 const SettingsTab = () => {
     const dispatch = useDispatch();
 
+    const user = useSelector(state => state.user);
+
+    // Change name setting
+    const [name, setName] = useState('');
+    const updateName = () => {
+        const data = {
+            "id": user._id,
+            "name": name
+        };
+
+        Axios.post('http://localhost:5000/change/name', data)
+            .then((data) => console.log(data.data))
+            .catch((error) => console.log(error.message));
+    }
+
+    // Change theme setting
     const theme = useSelector(state => state.theme);
 
     return (
