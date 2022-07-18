@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { logoutUser } from "../redux/actions/session";
 import { deleteUser } from "../redux/actions/user";
@@ -18,6 +18,7 @@ import {
 const NavBar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
 
     const isAuth = useSelector(state => state.session);
 
@@ -42,23 +43,34 @@ const NavBar = () => {
                         {
                             isAuth
                             ?
-                                <Button
-                                    variant="contained"
-                                    color="info"
-                                    onClick={() => {
-                                        dispatch(logoutUser());
-                                        dispatch(unsetUID());
-                                        dispatch(deleteUser());
-                                    }}
-                                    disableElevation
-                                >
-                                    Logout
-                                </Button>
+                                location.pathname === "/panel"
+                                ?
+                                    <Button
+                                        variant="contained"
+                                        color="info"
+                                        onClick={() => {
+                                            dispatch(logoutUser());
+                                            dispatch(unsetUID());
+                                            dispatch(deleteUser());
+                                        }}
+                                        disableElevation
+                                    >
+                                        Logout
+                                    </Button>
+                                :
+                                    <Button
+                                        variant="contained"
+                                        color="info"
+                                        onClick={() => history.push('/panel')}
+                                        disableElevation
+                                    >
+                                        Panel
+                                    </Button>
                             :
                                 <Button
                                     variant="contained"
                                     color="info"
-                                    href="/auth"
+                                    onClick={() => history.push('/auth')}
                                     disableElevation
                                 >
                                     Login
