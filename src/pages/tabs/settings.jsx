@@ -39,6 +39,7 @@ import LoadingBox from "../../components/loading";
 const SettingsTab = () => {
     const user = useSelector(state => state.user);
     const uid = useSelector(state => state.uid);
+    const env = useSelector(state => state.env);
 
     useGetUser(uid);
 
@@ -63,7 +64,7 @@ const SettingsTab = () => {
             "name": name
         };
 
-        Axios.post('http://localhost:5000/change/name', data)
+        Axios.post(`${env.REACT_APP_BACKEND_API}/change/name`, data)
             .then((data) => {
                 createSnack('Name changed successfully.', 'success');
 
@@ -82,7 +83,7 @@ const SettingsTab = () => {
             "username": name
         };
 
-        Axios.post('http://localhost:5000/change/username', data)
+        Axios.post(`${env.REACT_APP_BACKEND_API}/change/username`, data)
             .then((data) => {
                 createSnack('Username changed successfully.', 'success');
 
@@ -107,7 +108,7 @@ const SettingsTab = () => {
                             "password": newPassword
                         }
 
-                        Axios.post('http://localhost:5000/change/password', data)
+                        Axios.post(`${env.REACT_APP_BACKEND_API}/change/password`, data)
                             .then((data) => {
                                 createSnack('Name changed successfully.', 'success');
 
