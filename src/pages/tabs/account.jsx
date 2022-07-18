@@ -41,6 +41,7 @@ const AccountTab = () => {
 
     const user = useSelector(state => state.user);
     const uid = useSelector(state => state.uid);
+    const env = useSelector(state => state.env);
 
     useGetUser(uid);
 
@@ -75,7 +76,7 @@ const AccountTab = () => {
             "id": user._id,
         }
 
-        Axios.post('http://localhost:5000/change/delete', data)
+        Axios.post(`${env.REACT_APP_BACKEND_API}/change/delete`, data)
             .then((data) => {
                 dispatch(logoutUser());
                 dispatch(unsetUID());
