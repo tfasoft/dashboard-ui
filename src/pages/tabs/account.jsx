@@ -17,7 +17,9 @@ import {
 } from "@mui/material";
 
 import {
-    CopyAll
+    CopyAll,
+    Lock,
+    Delete,
 } from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
@@ -43,14 +45,9 @@ const AccountTab = () => {
             :
             <Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="primary"
-                            variant="h4"
-                        >
-                            Access token
-                        </Typography>
-                    }
+                    icon={<Lock fontSize="large" />}
+                    title="Access token"
+                    color="primary"
                     content={
                         <Box>
                             <Box
@@ -86,14 +83,9 @@ const AccountTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="error"
-                            variant="h4"
-                        >
-                            Delete account
-                        </Typography>
-                    }
+                    icon={<Delete fontSize="large" />}
+                    title="Delete account"
+                    color="error"
                     content={
                         <Box>
                             <TextField
