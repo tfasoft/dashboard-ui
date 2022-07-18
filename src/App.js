@@ -22,9 +22,6 @@ function App() {
   const theme = createTheme({
     palette: {
       mode,
-      primary: {
-        main: "#17a2f2"
-      },
       background: {
         default: mode === 'light' ? "#f4fcfc" : "#121212",
         paper: mode === 'light' ? "#fff" : "#121212"
