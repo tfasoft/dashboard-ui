@@ -21,12 +21,14 @@ import {
 import TwoInRow from "../../components/panelrowitem";
 
 const AccountTab = () => {
+    const user = useSelector(state => state.user);
+
     const [agree, setAgree] = useState(false);
     const [copied, setCopied] = useState(false);
 
     const [password, setPassword] = useState('');
 
-    const [accessToken, setAccessToken] = useState(useSelector(state => state.user.access_token));
+    const accessToken = user.access_token;
 
     return (
         <Box>
