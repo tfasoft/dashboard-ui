@@ -38,33 +38,15 @@ const AuthPage = () => {
 
     const [errorBar, setErrorBar] = useState(false);
 
-    const loginUser = () => {
+    const authUser = () => {
         const userData = {
             username,
             password
         };
 
-        Axios.post('http://localhost:5000/auth/login', userData)
-            .then((data) => {
-                dispatch(setUID(data.data.id));
-                dispatch(logoinUser());
-            })
-            .catch((error) => {
-                if (error.response.status === 401) {
-                    setError(true);
-                    setErrorBar(true);
-                }
-            });
-    }
+        if (!login) userData['name'] = name;
 
-    const registerUser = () => {
-        const userData = {
-            name,
-            username,
-            password
-        };
-
-        Axios.post('http://localhost:5000/auth/register', userData)
+        Axios.post(`http://localhost:5000/auth/${login ? 'login' : 'register'}`, userData)
             .then((data) => {
                 dispatch(setUID(data.data.id));
                 dispatch(logoinUser());
@@ -152,7 +134,7 @@ const AuthPage = () => {
                             variant="contained"
                             color="primary"
                             size="large"
-                            onClick={() => login ? loginUser() : registerUser()}
+                            onClick={() => authUser()}
                             disableElevation
                             fullWidth
                         >
