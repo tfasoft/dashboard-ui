@@ -21,6 +21,8 @@ import {
     MenuItem,
     Alert,
     Snackbar,
+    InputLabel,
+    FormControl,
 } from "@mui/material";
 
 import {
@@ -196,7 +198,7 @@ const SettingsTab = () => {
                                 <TextField
                                     color="primary"
                                     placeholder="New Username"
-                                    label="Name"
+                                    label="Username"
                                     size="small"
                                     margin="none"
                                     type="text"
@@ -315,18 +317,20 @@ const SettingsTab = () => {
                     color="primary"
                     content={
                         <Box>
-                            <Select
-                                variant="outlined"
-                                value={theme}
-                                label="Color"
-                                size="medium"
-                                color="primary"
-                                onChange={(e) => dispatch(setTheme(e.target.value))}
-                                fullWidth
-                            >
-                                <MenuItem value='light'>Light</MenuItem>
-                                <MenuItem value='dark'>Dark</MenuItem>
-                            </Select>
+                            <FormControl fullWidth>
+                                <InputLabel>Theme</InputLabel>
+                                <Select
+                                    variant="outlined"
+                                    value={theme}
+                                    label="Theme"
+                                    size="medium"
+                                    color="primary"
+                                    onChange={(e) => dispatch(setTheme(e.target.value))}
+                                >
+                                    <MenuItem value='light'>Light</MenuItem>
+                                    <MenuItem value='dark'>Dark</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Box>
                     }
                 />
