@@ -30,33 +30,67 @@ const AuthPage = () => {
 
     const [login, setLogin] = useState(true);
 
-    const [name, setName] = useState([]);
-    const [username, setUsername] = useState([]);
-    const [password, setPassword] = useState([]);
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const [error, setError] = useState(false);
 
-    const [errorBar, setErrorBar] = useState(false);
+    // Snackbar
+    const [openSnack, setOpenSnack] = useState(false);
+    const [messageSnack, setMessageSnack] = useState('');
+    const [typeSnack, setTypeSnack] = useState('');
+    const createSnack = (message, type) => {
+        setMessageSnack(message);
+        setTypeSnack(type);
+
+        setOpenSnack(true)
+    }
 
     const authUser = () => {
-        const userData = {
-            username,
-            password
-        };
+        if (login) {
+            if (username !== '' && password !== '') {
+                const userData = {
+                    username,
+                    password
+                };
 
-        if (!login) userData['name'] = name;
+                Axios.post('http://localhost:5000/auth/login', userData)
+                    .then((data) => {
+                        dispatch(setUID(data.data.id));
+                        dispatch(logoinUser());
+                    })
+                    .catch((error) => {
+                        if (error.response.status === 401) {
+                            setError(true);
+                            createSnack('Sorry, user is not found.', 'error');
+                        }
+                    });
+            } else {
+                createSnack('Complete all fields.', 'error');
+                setError(true);
+            }
+        } else {
+            if (name !== '' && username !== '' && password !== '') {
+                const userData = {
+                    name,
+                    username,
+                    password
+                };
 
-        Axios.post(`http://localhost:5000/auth/${login ? 'login' : 'register'}`, userData)
-            .then((data) => {
-                dispatch(setUID(data.data.id));
-                dispatch(logoinUser());
-            })
-            .catch((error) => {
-                if (error.response.status === 401) {
-                    setError(true);
-                    setErrorBar(true);
-                }
-            });
+                Axios.post('http://localhost:5000/auth/register', userData)
+                    .then((data) => {
+                        dispatch(setUID(data.data.id));
+                        dispatch(logoinUser());
+                    })
+                    .catch((error) => {
+                        createSnack(error.message, 'error');
+                    });
+            } else {
+                createSnack('Complete all fields.', 'error');
+                setError(true);
+            }
+        }
     }
 
     return (
@@ -102,6 +136,7 @@ const AuthPage = () => {
                                 margin="normal"
                                 type="text"
                                 error={error}
+                                value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 fullWidth
                             />
@@ -114,6 +149,7 @@ const AuthPage = () => {
                             margin="normal"
                             type="text"
                             error={error}
+                            value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             fullWidth
                         />
@@ -125,6 +161,7 @@ const AuthPage = () => {
                             margin="normal"
                             type="password"
                             error={error}
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
@@ -168,9 +205,9 @@ const AuthPage = () => {
                 </Grid>
             </Grid>
 
-            <Snackbar open={errorBar} autoHideDuration={6000} onClose={() => setErrorBar(false)}>
-                <Alert onClose={() => setErrorBar(false)} severity="error">
-                    Sorry, user is not found.
+            <Snackbar open={openSnack} autoHideDuration={6000} onClose={() => setOpenSnack(false)}>
+                <Alert onClose={() => setOpenSnack(false)} severity={typeSnack}>
+                    {messageSnack}
                 </Alert>
             </Snackbar>
         </Box>
