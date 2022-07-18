@@ -44,7 +44,7 @@ const AuthPage = () => {
             password
         };
 
-        Axios.post('http://localhost:5000/login', userData)
+        Axios.post('http://localhost:5000/auth/login', userData)
             .then((data) => {
                 dispatch(setUID(data.data.id));
                 dispatch(logoinUser());
@@ -64,7 +64,7 @@ const AuthPage = () => {
             password
         };
 
-        Axios.post('http://localhost:5000/register', userData)
+        Axios.post('http://localhost:5000/auth/register', userData)
             .then((data) => {
                 dispatch(setUID(data.data.user.id));
                 dispatch(logoinUser());
