@@ -1,7 +1,13 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 
+import Axios from "axios";
+
 import { useGetUser } from "../../hooks/getUserHook";
+
+import { logoutUser } from "../../redux/actions/session";
+import { unsetUID } from "../../redux/actions/uid";
+import { deleteUser } from "../../redux/actions/user";
 
 import {
     Box,
@@ -26,6 +32,8 @@ import TwoInRow from "../../components/panelrowitem";
 import LoadingBox from "../../components/loading";
 
 const AccountTab = () => {
+    const dispatch = useDispatch();
+
     const user = useSelector(state => state.user);
     const uid = useSelector(state => state.uid);
 
@@ -34,7 +42,38 @@ const AccountTab = () => {
     const [agree, setAgree] = useState(false);
     const [copied, setCopied] = useState(false);
 
+    // Snackbar
+    const [openSnack, setOpenSnack] = useState(false);
+    const [messageSnack, setMessageSnack] = useState('');
+    const [typeSnack, setTypeSnack] = useState('');
+    const createSnack = (message, type) => {
+        setMessageSnack(message);
+        setTypeSnack(type);
+
+        setOpenSnack(true)
+    }
+
+    // Delete account
     const [password, setPassword] = useState('');
+    const deleteAccount = () => {
+        if (password !== '') {
+            if (password === user.password) {
+                const data = {
+                    "id": user._id,
+                }
+
+                Axios.post('http://localhost:5000/change/delete', data)
+                    .then((data) => {
+                        dispatch(logoutUser());
+                        dispatch(unsetUID());
+                        dispatch(deleteUser());
+                    })
+                    .catch((error) => {
+                        createSnack('Sorry, an error occurred.', 'error');
+                    });
+            } else createSnack('Wrong password.', 'error');
+        } else createSnack('Complete field first.', 'error');
+    }
 
     const accessToken = user.access_token;
 
@@ -95,6 +134,7 @@ const AccountTab = () => {
                                 size="small"
                                 type="password"
                                 margin="none"
+                                value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 fullWidth
                             />
@@ -112,6 +152,7 @@ const AccountTab = () => {
                             <Button
                                 variant="contained"
                                 color="error"
+                                onClick={() => deleteAccount()}
                                 disableElevation
                                 disabled={
                                     !agree
@@ -126,6 +167,12 @@ const AccountTab = () => {
                 <Snackbar open={copied} autoHideDuration={6000} onClose={() => setCopied(false)}>
                     <Alert onClose={() => setCopied(false)} severity="info">
                         Access token copied in clipboard
+                    </Alert>
+                </Snackbar>
+
+                <Snackbar open={openSnack} autoHideDuration={6000} onClose={() => setOpenSnack(false)}>
+                    <Alert onClose={() => setOpenSnack(false)} severity={typeSnack}>
+                        {messageSnack}
                     </Alert>
                 </Snackbar>
             </Box>
