@@ -23,6 +23,7 @@ const AuthPage = () => {
     const dispatch = useDispatch();
 
     const isAuth = useSelector(state => state.session);
+    const env = useSelector(state => state.env);
 
     if (isAuth) {
         history.push('/panel')
@@ -55,7 +56,7 @@ const AuthPage = () => {
                     password
                 };
 
-                Axios.post('http://localhost:5000/auth/login', userData)
+                Axios.post(`${env.REACT_APP_BACKEND_API}/auth/login`, userData)
                     .then((data) => {
                         dispatch(setUID(data.data.id));
                         dispatch(logoinUser());
@@ -78,7 +79,7 @@ const AuthPage = () => {
                     password
                 };
 
-                Axios.post('http://localhost:5000/auth/register', userData)
+                Axios.post(`${env.REACT_APP_BACKEND_API}/auth/register`, userData)
                     .then((data) => {
                         dispatch(setUID(data.data.id));
                         dispatch(logoinUser());
