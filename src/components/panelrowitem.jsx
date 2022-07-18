@@ -1,5 +1,6 @@
 import {
-    Grid
+    Box,
+    Grid, Typography
 } from "@mui/material";
 
 const TwoInRow = (props) => {
@@ -13,7 +14,19 @@ const TwoInRow = (props) => {
                 xs={6}
                 item
             >
-                {props.title}
+                <Typography
+                    color={props.color}
+                    variant="h4"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    {props.icon}
+                    &nbsp;
+                    {props.title}
+                </Typography>
             </Grid>
             <Grid
                 xs={6}
