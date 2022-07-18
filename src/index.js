@@ -23,7 +23,8 @@ store.subscribe(() => saveState({
     user: store.getState().user,
     session: store.getState().session,
     uid: store.getState().uid,
-    theme: store.getState().theme
+    theme: store.getState().theme,
+    env: store.getState().env
 }))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
