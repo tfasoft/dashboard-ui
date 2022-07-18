@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 
 import {
+    Person,
     Badge,
     Key,
     Brush,
@@ -45,6 +46,12 @@ const SettingsTab = () => {
     const [openSnack, setOpenSnack] = useState(false);
     const [messageSnack, setMessageSnack] = useState('');
     const [typeSnack, setTypeSnack] = useState('');
+    const createSnack = (message, type) => {
+        setMessageSnack(message);
+        setTypeSnack(type);
+
+        setOpenSnack(true)
+    }
 
     // Change name setting
     const [name, setName] = useState('');
@@ -56,19 +63,63 @@ const SettingsTab = () => {
 
         Axios.post('http://localhost:5000/change/name', data)
             .then((data) => {
-                setMessageSnack('Name changed successfully.');
-                setTypeSnack('success');
-
-                setOpenSnack(true);
+                createSnack('Name changed successfully.', 'success');
 
                 setName('');
             })
             .catch((error) => {
-                setMessageSnack('Sorry, an error occurred.');
-                setTypeSnack('error');
-
-                setOpenSnack(true);
+                createSnack('Sorry, an error occurred.', 'error');
             });
+    }
+
+    // Change username setting
+    const [username, setUsername] = useState('');
+    const updateUsername = () => {
+        const data = {
+            "id": user._id,
+            "username": name
+        };
+
+        Axios.post('http://localhost:5000/change/username', data)
+            .then((data) => {
+                createSnack('Username changed successfully.', 'success');
+
+                setUsername('');
+            })
+            .catch((error) => {
+                createSnack('Sorry, an error occurred.', 'error');
+            });
+    }
+
+    // Change password setting
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const updatePassword = () => {
+        if (currentPassword !== '' && newPassword !== '' && confirmPassword !== '') {
+            if (currentPassword === user.password) {
+                if (newPassword === confirmPassword) {
+                    if (currentPassword !== newPassword) {
+                        const data = {
+                            "id": user._id,
+                            "password": newPassword
+                        }
+
+                        Axios.post('http://localhost:5000/change/password', data)
+                            .then((data) => {
+                                createSnack('Name changed successfully.', 'success');
+
+                                setCurrentPassword('');
+                                setNewPassword('');
+                                setConfirmPassword('');
+                            })
+                            .catch((error) => {
+                                createSnack('Sorry, an error occurred.', 'error');
+                            });
+                    } else createSnack('New password must be different with your current password', 'error');
+                } else createSnack('New password and confirm password are not same.', 'error');
+            } else createSnack('Your current password is wrong.', 'error');
+        } else createSnack('Complete all fields first.', 'error');
     }
 
     // Change theme setting
@@ -81,7 +132,7 @@ const SettingsTab = () => {
             :
             <Box>
                 <TwoInRow
-                    icon={<Badge fontSize="large" />}
+                    icon={<Person fontSize="large" />}
                     title="Change name"
                     color="primary"
                     content={
@@ -129,6 +180,54 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
+                    icon={<Badge fontSize="large" />}
+                    title="Change username"
+                    color="primary"
+                    content={
+                        <Grid
+                            columns={{ xs: 6, md: 12 }}
+                            spacing={2}
+                            container
+                        >
+                            <Grid
+                                xs={12}
+                                item
+                            >
+                                <TextField
+                                    color="primary"
+                                    placeholder="New Username"
+                                    label="Name"
+                                    size="small"
+                                    margin="none"
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid
+                                xs={12}
+                                item
+                            >
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="medium"
+                                    onClick={() => updateUsername()}
+                                    disableElevation
+                                >
+                                    Change username
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    }
+                />
+                <Box>
+                    <br />
+                    <Divider />
+                    <br />
+                </Box>
+                <TwoInRow
                     icon={<Key fontSize="large" />}
                     title="Change password"
                     color="primary"
@@ -150,6 +249,8 @@ const SettingsTab = () => {
                                         size="small"
                                         margin="none"
                                         type="password"
+                                        value={currentPassword}
+                                        onChange={(e) => setCurrentPassword(e.target.value)}
                                         fullWidth
                                     />
                                 </Grid>
@@ -164,6 +265,8 @@ const SettingsTab = () => {
                                         size="small"
                                         margin="none"
                                         type="password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
                                         fullWidth
                                     />
                                 </Grid>
@@ -178,6 +281,8 @@ const SettingsTab = () => {
                                         size="small"
                                         margin="none"
                                         type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
                                         fullWidth
                                     />
                                 </Grid>
@@ -189,6 +294,7 @@ const SettingsTab = () => {
                                         variant="contained"
                                         color="primary"
                                         size="medium"
+                                        onClick={() => updatePassword()}
                                         disableElevation
                                     >
                                         Change password
