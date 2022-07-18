@@ -19,7 +19,12 @@ import {
     Divider,
     Checkbox,
     Snackbar,
-    Alert
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions
 } from "@mui/material";
 
 import {
@@ -53,26 +58,32 @@ const AccountTab = () => {
         setOpenSnack(true)
     }
 
+    // Confirm delete
+    const [openConfirm, setOpenConfirm] = useState(false);
+
     // Delete account
     const [password, setPassword] = useState('');
-    const deleteAccount = () => {
+    const deleteAccountDialogHandler = () => {
         if (password !== '') {
-            if (password === user.password) {
-                const data = {
-                    "id": user._id,
-                }
-
-                Axios.post('http://localhost:5000/change/delete', data)
-                    .then((data) => {
-                        dispatch(logoutUser());
-                        dispatch(unsetUID());
-                        dispatch(deleteUser());
-                    })
-                    .catch((error) => {
-                        createSnack('Sorry, an error occurred.', 'error');
-                    });
-            } else createSnack('Wrong password.', 'error');
+            if (password === user.password) setOpenConfirm(true);
+            else createSnack('Wrong password.', 'error');
         } else createSnack('Complete field first.', 'error');
+    }
+
+    const deleteAccount = () => {
+        const data = {
+            "id": user._id,
+        }
+
+        Axios.post('http://localhost:5000/change/delete', data)
+            .then((data) => {
+                dispatch(logoutUser());
+                dispatch(unsetUID());
+                dispatch(deleteUser());
+            })
+            .catch((error) => {
+                createSnack('Sorry, an error occurred.', 'error');
+            });
     }
 
     const accessToken = user.access_token;
@@ -152,7 +163,7 @@ const AccountTab = () => {
                             <Button
                                 variant="contained"
                                 color="error"
-                                onClick={() => deleteAccount()}
+                                onClick={() => deleteAccountDialogHandler()}
                                 disableElevation
                                 disabled={
                                     !agree
@@ -163,6 +174,29 @@ const AccountTab = () => {
                         </Box>
                     }
                 />
+
+                <Dialog
+                    open={openConfirm}
+                    onClose={() => setOpenConfirm(false)}
+                >
+                    <DialogTitle>
+                        Confirm delete account?
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Do you confirm that you want to delete your account?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => deleteAccount()}
+                        >
+                            I confirm
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
                 <Snackbar open={copied} autoHideDuration={6000} onClose={() => setCopied(false)}>
                     <Alert onClose={() => setCopied(false)} severity="info">
