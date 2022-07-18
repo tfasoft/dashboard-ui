@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import Axios from "axios";
-
-import { createUser } from "../redux/actions/user";
+import { useGetUser } from "../hooks/getUserHook";
 
 import {
     Box,
@@ -21,7 +19,6 @@ import {
     Home,
     Settings,
     Security,
-    Person,
 } from "@mui/icons-material";
 
 import LoadingBox from "../components/loading";
@@ -32,34 +29,13 @@ import AccountTab from "./tabs/account";
 
 const PanelPage = () => {
     const history = useHistory();
-    const dispatch = useDispatch();
-
-    const [tab, setTab] = useState('1');
 
     const isAuth = useSelector(state => state.session);
-
     if (!isAuth) {
         history.push('/auth')
     }
 
-    const uid = useSelector(state => state.uid);
-
-    const user = useSelector(state => state.user);
-
-    useEffect(() => {
-        const send = {
-            uid,
-        }
-
-        Axios.post('http://localhost:5000/get/admin', send)
-            .then((data) => {
-                dispatch(createUser(data.data));
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    }, [uid]);
-
+    const [tab, setTab] = useState('1');
     const changeTab = (event, newValue) => {
         setTab(newValue);
     };
@@ -94,31 +70,13 @@ const PanelPage = () => {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    {
-                        user._id === undefined
-                        ?
-                            <LoadingBox />
-                        :
-                            <HomeTab />
-                    }
+                    <HomeTab />
                 </TabPanel>
                 <TabPanel value="2">
-                    {
-                        user._id === undefined
-                            ?
-                            <LoadingBox />
-                            :
-                            <SettingsTab />
-                    }
+                    <SettingsTab />
                 </TabPanel>
                 <TabPanel value="3">
-                    {
-                        user._id === undefined
-                            ?
-                            <LoadingBox />
-                            :
-                            <AccountTab />
-                    }
+                    <AccountTab />
                 </TabPanel>
             </TabContext>
         </Box>
