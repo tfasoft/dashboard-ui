@@ -16,8 +16,19 @@ import {
     TextField,
     Button,
     Divider,
-    Grid, Select, MenuItem, Alert, Snackbar,
+    Grid,
+    Select,
+    MenuItem,
+    Alert,
+    Snackbar,
 } from "@mui/material";
+
+import {
+    Badge,
+    Key,
+    Brush,
+    Logout
+} from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
 import LoadingBox from "../../components/loading";
@@ -70,14 +81,9 @@ const SettingsTab = () => {
             :
             <Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="primary"
-                            variant="h4"
-                        >
-                            Change name
-                        </Typography>
-                    }
+                    icon={<Badge fontSize="large" />}
+                    title="Change name"
+                    color="primary"
                     content={
                         <Grid
                             columns={{ xs: 6, md: 12 }}
@@ -123,14 +129,9 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="primary"
-                            variant="h4"
-                        >
-                            Change password
-                        </Typography>
-                    }
+                    icon={<Key fontSize="large" />}
+                    title="Change password"
+                    color="primary"
                     content={
                         <Box>
                             <Grid
@@ -203,14 +204,9 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="primary"
-                            variant="h4"
-                        >
-                            Change theme
-                        </Typography>
-                    }
+                    icon={<Brush fontSize="large" />}
+                    title="Change theme"
+                    color="primary"
                     content={
                         <Box>
                             <Select
@@ -234,14 +230,9 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    title={
-                        <Typography
-                            color="error"
-                            variant="h4"
-                        >
-                            Logout
-                        </Typography>
-                    }
+                    icon={<Logout fontSize="large" />}
+                    title="Logout"
+                    color="error"
                     content={
                         <Box>
                             <Button
