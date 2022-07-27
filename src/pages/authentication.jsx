@@ -16,6 +16,10 @@ import {
     Button,
     Snackbar,
     Alert,
+    Select,
+    FormControl,
+    InputLabel,
+    MenuItem
 } from "@mui/material";
 
 const AuthPage = () => {
@@ -32,6 +36,7 @@ const AuthPage = () => {
     const [login, setLogin] = useState(true);
 
     const [name, setName] = useState('');
+    const [serviceType, setServiceType] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -72,11 +77,12 @@ const AuthPage = () => {
                 setError(true);
             }
         } else {
-            if (name !== '' && username !== '' && password !== '') {
+            if (name !== '' && username !== '' && password !== '' && serviceType !== '') {
                 const userData = {
                     name,
                     username,
-                    password
+                    password,
+                    "service_type": serviceType,
                 };
 
                 Axios.post(`${env.REACT_APP_BACKEND_API}/auth/register`, userData)
@@ -166,6 +172,26 @@ const AuthPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
+                        {
+                            !login
+                            &&
+                            <FormControl
+                                margin="normal"
+                                size="small"
+                                fullWidth
+                            >
+                                <InputLabel>Service Type</InputLabel>
+                                <Select
+                                    variant="outlined"
+                                    value={serviceType}
+                                    label="Service Type"
+                                    color="primary"
+                                    onChange={(e) => setServiceType(e.target.value)}
+                                >
+                                    <MenuItem value='beta'>Beta</MenuItem>
+                                </Select>
+                            </FormControl>
+                        }
                         <br />
                         <br />
                         <Button
