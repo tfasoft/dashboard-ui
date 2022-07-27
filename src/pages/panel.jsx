@@ -19,6 +19,7 @@ import {
     Home,
     Settings,
     Security,
+    BarChart,
 } from "@mui/icons-material";
 
 import LoadingBox from "../components/loading";
@@ -26,6 +27,7 @@ import LoadingBox from "../components/loading";
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
+import AnalyticsTab from "./tabs/analytics";
 
 const PanelPage = () => {
     const history = useHistory();
@@ -67,6 +69,12 @@ const PanelPage = () => {
                             iconPosition="start"
                             value="3"
                         />
+                        <Tab
+                            label="Analytics"
+                            icon={<BarChart />}
+                            iconPosition="start"
+                            value="4"
+                        />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -77,6 +85,9 @@ const PanelPage = () => {
                 </TabPanel>
                 <TabPanel value="3">
                     <AccountTab />
+                </TabPanel>
+                <TabPanel value="4">
+                    <AnalyticsTab />
                 </TabPanel>
             </TabContext>
         </Box>
