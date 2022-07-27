@@ -41,7 +41,7 @@ const NavBar = () => {
                             }}
                             onClick={() => history.push('/')}
                         >
-                            TFA Dashboard
+                            TFASoft Dashboard
                         </Typography>
                         {
                             isAuth
