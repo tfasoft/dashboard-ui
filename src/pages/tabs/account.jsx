@@ -31,6 +31,7 @@ import {
     CopyAll,
     Lock,
     Delete,
+    Quiz,
 } from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
@@ -88,6 +89,7 @@ const AccountTab = () => {
     }
 
     const accessToken = user.access_token;
+    const serviceType = user.service_type;
 
     return (
         user._id === undefined
@@ -124,6 +126,34 @@ const AccountTab = () => {
                                 >
                                     <CopyAll />
                                 </IconButton>
+                            </Box>
+                        </Box>
+                    }
+                />
+                <Box>
+                    <br />
+                    <Divider />
+                    <br />
+                </Box>
+                <TwoInRow
+                    icon={<Quiz fontSize="large" />}
+                    title="Service Type"
+                    color="primary"
+                    content={
+                        <Box>
+                            <Box
+                                sx={{ display: 'flex', width: "100%" }}
+                            >
+                                <TextField
+                                    color="primary"
+                                    label="Service Type"
+                                    size="small"
+                                    type="text"
+                                    value={serviceType}
+                                    margin="none"
+                                    fullWidth
+                                    disabled
+                                />
                             </Box>
                         </Box>
                     }
