@@ -30,12 +30,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tele-fa/dashboard-frontend.git"
+    "url": "git+https://github.com/tfasoft/dashboard-frontend.git"
   },
   "author": "Amirhossein Mohammadi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tele-fa/dashboard-frontend/issues"
+    "url": "https://github.com/tfasoft/dashboard-frontend/issues"
   },
   "eslintConfig": {
     "extends": [
