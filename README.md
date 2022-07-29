@@ -6,4 +6,4 @@
 
 ## Back-End
 
-Back-End is available [here](https://github.com/tele-fa/dashboard-backend).
+Back-End is available [here](https://github.com/tfasoft/dashboard-backend).
