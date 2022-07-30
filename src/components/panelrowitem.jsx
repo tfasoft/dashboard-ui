@@ -16,16 +16,27 @@ const TwoInRow = (props) => {
             >
                 <Typography
                     color={props.color}
-                    variant="h4"
+                    variant="body1"
                     sx={{
                         display: 'flex',
                         alignItems: 'center',
                         flexWrap: 'wrap',
                     }}
+                    gutterBottom
                 >
-                    {props.icon}
-                    &nbsp;
                     {props.title}
+                </Typography>
+                <Typography
+                    color="text.secondary"
+                    variant="body2"
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                    }}
+                    gutterBottom
+                >
+                    {props.details}
                 </Typography>
             </Grid>
             <Grid

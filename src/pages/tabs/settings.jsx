@@ -135,8 +135,8 @@ const SettingsTab = () => {
             :
             <Box>
                 <TwoInRow
-                    icon={<Person fontSize="large" />}
                     title="Change name"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Grid
@@ -183,8 +183,8 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Badge fontSize="large" />}
                     title="Change username"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Grid
@@ -231,8 +231,8 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Key fontSize="large" />}
                     title="Change password"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Box>
@@ -313,8 +313,8 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Brush fontSize="large" />}
                     title="Change theme"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Box>
@@ -341,8 +341,8 @@ const SettingsTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Logout fontSize="large" />}
                     title="Logout"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="error"
                     content={
                         <Box>

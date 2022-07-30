@@ -98,8 +98,8 @@ const AccountTab = () => {
             :
             <Box>
                 <TwoInRow
-                    icon={<Lock fontSize="large" />}
                     title="Access token"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Box>
@@ -136,8 +136,8 @@ const AccountTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Quiz fontSize="large" />}
                     title="Service Type"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="primary"
                     content={
                         <Box>
@@ -164,8 +164,8 @@ const AccountTab = () => {
                     <br />
                 </Box>
                 <TwoInRow
-                    icon={<Delete fontSize="large" />}
                     title="Delete account"
+                    details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
                     color="error"
                     content={
                         <Box>
