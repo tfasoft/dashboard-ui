@@ -12,7 +12,6 @@ import { setTheme } from "../../redux/actions/theme";
 
 import {
     Box,
-    Typography,
     TextField,
     Button,
     Divider,
@@ -24,14 +23,6 @@ import {
     InputLabel,
     FormControl,
 } from "@mui/material";
-
-import {
-    Person,
-    Badge,
-    Key,
-    Brush,
-    Logout
-} from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
 import LoadingBox from "../../components/loading";
