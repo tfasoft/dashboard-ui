@@ -11,7 +11,6 @@ import { deleteUser } from "../../redux/actions/user";
 
 import {
     Box,
-    Typography,
     TextField,
     FormControlLabel,
     IconButton,
@@ -29,9 +28,6 @@ import {
 
 import {
     CopyAll,
-    Lock,
-    Delete,
-    Quiz,
 } from "@mui/icons-material";
 
 import TwoInRow from "../../components/panelrowitem";
