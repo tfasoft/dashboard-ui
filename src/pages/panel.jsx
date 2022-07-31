@@ -22,8 +22,6 @@ import {
     BarChart,
 } from "@mui/icons-material";
 
-import LoadingBox from "../components/loading";
-
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
@@ -50,7 +48,7 @@ const PanelPage = () => {
         >
             <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={changeTab} aria-label="lab API tabs example">
+                    <TabList onChange={changeTab} variant="scrollable">
                         <Tab
                             label="Home"
                             icon={<Home />}
