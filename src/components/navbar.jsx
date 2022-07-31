@@ -9,7 +9,6 @@ import { unsetUID } from "../redux/actions/uid";
 import {
     AppBar,
     Box,
-    Button,
     Container,
     Toolbar,
     Typography,
@@ -61,7 +60,6 @@ const navItems = [
 const NavBar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const location = useLocation();
 
     const isAuth = useSelector(state => state.session);
 
