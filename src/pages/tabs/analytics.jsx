@@ -30,10 +30,13 @@ const AnalyticsTab = () => {
             :
             <Box>
                 <Grid
+                    spacing={2}
                     container
                 >
                     <Grid
-                        xs={6}
+                        md={6}
+                        sm={6}
+                        xs={12}
                         item
                     >
                         <Card
