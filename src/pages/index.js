@@ -1,5 +1,7 @@
 import { Box, Typography, Grid } from "@mui/material";
 
+import TFALogo from "@/images/tfa-logo.png";
+
 export default function Home() {
   return (
     <Box
@@ -52,16 +54,16 @@ export default function Home() {
           }}
           xs={6}
         >
-          {/* <Box
+          <Box
             sx={{
               display: { xs: "none", sm: "none", md: "block" },
             }}
             component="img"
             className={"tfa_logo"}
-            src={TFALogo}
+            src={TFALogo.src}
             alt="TFA logo"
             width="100%"
-          /> */}
+          />
         </Grid>
       </Grid>
     </Box>
