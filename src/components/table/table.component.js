@@ -81,12 +81,13 @@ const TableComponent = ({ table, data, del, upd }) => {
           <TableBody>
             {renderRows.map((d) => (
               <TableRow
+                key={d}
                 sx={{
                   "&:hover": { cursor: "pointer", background: "#fafafa" },
                 }}
               >
                 {Object.keys(tbl.fields).map((item) => (
-                  <TableCell>{renderSwitch(d, item)}</TableCell>
+                  <TableCell key={item}>{renderSwitch(d, item)}</TableCell>
                 ))}
               </TableRow>
             ))}

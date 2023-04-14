@@ -40,12 +40,13 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
           switch (field.type) {
             case "radio":
               return (
-                <Box>
+                <Box key={name}>
                   <FormControl margin="normal">
                     <FormLabel>{field.label}</FormLabel>
                     <RadioGroup defaultValue={def && def[name]} row>
                       {field.items.map((item) => (
                         <FormControlLabel
+                          key={`${name}-${item.value}`}
                           value={item.value}
                           {...register(name)}
                           label={item.label}
@@ -59,7 +60,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
               );
             case "checkbox":
               return (
-                <Box>
+                <Box key={name}>
                   <FormControlLabel
                     value={name}
                     {...register(name)}
@@ -83,7 +84,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
               );
             case "select":
               return (
-                <FormControl margin="normal" fullWidth>
+                <FormControl margin="normal" key={name} fullWidth>
                   <InputLabel>{field.label}</InputLabel>
                   <Select
                     defaultValue={def && def[name]}
@@ -92,7 +93,12 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
                     label={field.label}
                   >
                     {field.options.map((option) => (
-                      <MenuItem value={option.value}>{option.label}</MenuItem>
+                      <MenuItem
+                        key={`${name}-${option.value}`}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
