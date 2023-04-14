@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 import { setToken } from "@/redux/actions/token";
@@ -20,7 +19,6 @@ import {
 } from "@mui/material";
 
 const Auth = () => {
-  const history = useRouter();
   const dispatch = useDispatch();
 
   const [login, setLogin] = useState(true);
@@ -54,68 +52,70 @@ const Auth = () => {
   };
 
   return (
-    <Box
-      sx={{
-        border: 1,
-        borderColor: "primary.main",
-        borderRadius: 1,
-        marginTop: "5rem",
-      }}
-    >
-      <Grid columns={{ xs: 6, md: 12 }} container>
-        <Grid
-          item
-          sx={{
-            padding: "2rem",
-          }}
-          xs={6}
-        >
-          <Box>
-            <Typography variant="h4" color="primary" gutterBottom>
-              {login ? "Login" : "Register"}
-            </Typography>
-            <Divider />
-            <Form
-              name={login ? "login" : "register"}
-              callback={authUser}
-              button={login ? "Login" : "Register"}
-              btnStyle={{
-                fullWidth: true,
-                disabled: false,
-              }}
-            />
-          </Box>
-          <br />
-          <Button
-            variant="outlined"
-            color="primary"
-            size="large"
-            onClick={() => setLogin(!login)}
-            fullWidth
-          >
-            {login ? "I don't have account" : "I have account"}
-          </Button>
-        </Grid>
-        <Grid
-          item
-          xs={6}
-          sx={{
-            backgroundColor: "primary.main",
-          }}
-        />
-      </Grid>
-
-      <Snackbar
-        open={openSnack}
-        autoHideDuration={6000}
-        onClose={() => setOpenSnack(false)}
+    <hasAuth>
+      <Box
+        sx={{
+          border: 1,
+          borderColor: "primary.main",
+          borderRadius: 1,
+          marginTop: "5rem",
+        }}
       >
-        <Alert onClose={() => setOpenSnack(false)} severity={typeSnack}>
-          {messageSnack}
-        </Alert>
-      </Snackbar>
-    </Box>
+        <Grid columns={{ xs: 6, md: 12 }} container>
+          <Grid
+            item
+            sx={{
+              padding: "2rem",
+            }}
+            xs={6}
+          >
+            <Box>
+              <Typography variant="h4" color="primary" gutterBottom>
+                {login ? "Login" : "Register"}
+              </Typography>
+              <Divider />
+              <Form
+                name={login ? "login" : "register"}
+                callback={authUser}
+                button={login ? "Login" : "Register"}
+                btnStyle={{
+                  fullWidth: true,
+                  disabled: false,
+                }}
+              />
+            </Box>
+            <br />
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              onClick={() => setLogin(!login)}
+              fullWidth
+            >
+              {login ? "I don't have account" : "I have account"}
+            </Button>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            sx={{
+              backgroundColor: "primary.main",
+            }}
+          />
+        </Grid>
+
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={6000}
+          onClose={() => setOpenSnack(false)}
+        >
+          <Alert onClose={() => setOpenSnack(false)} severity={typeSnack}>
+            {messageSnack}
+          </Alert>
+        </Snackbar>
+      </Box>
+    </hasAuth>
   );
 };
 
-export default hasAuth(Auth);
+export default Auth;
