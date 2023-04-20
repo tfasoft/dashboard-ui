@@ -1,9 +1,7 @@
-# Telegram Factor Authentication Dashboard - Front-End
+# TFASoft Dashboard | UI
 
-**TFA Dashboard** is a **MERN** application. This is the Front-End part of it.
-
-> We create the Front-End with **MUI** design.
+**TFA Blog** is a **MERN** application. This is the Front-End part of it.
 
 ## Back-End
 
-Back-End is available [here](https://github.com/tfasoft/dashboard-backend).
+Back-End is available [here](https://github.com/tfasoft/dashboard-api).
