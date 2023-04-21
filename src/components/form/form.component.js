@@ -65,7 +65,11 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
                     value={name}
                     {...register(name)}
                     label={field.label}
-                    control={<Checkbox />}
+                    control={
+                      <Checkbox
+                        color={btnStyle.color ? btnStyle.color : "primary"}
+                      />
+                    }
                   />
                   <br />
                 </Box>
@@ -73,6 +77,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
             case "color":
               return (
                 <TextField
+                  color={btnStyle.color ? btnStyle.color : "primary"}
                   key={name}
                   {...register(name)}
                   label={field.label}
@@ -84,7 +89,12 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
               );
             case "select":
               return (
-                <FormControl margin="normal" key={name} fullWidth>
+                <FormControl
+                  color={btnStyle.color ? btnStyle.color : "primary"}
+                  margin="normal"
+                  key={name}
+                  fullWidth
+                >
                   <InputLabel>{field.label}</InputLabel>
                   <Select
                     defaultValue={def && def[name]}
@@ -113,6 +123,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
                   label={field.label}
                   type={field.secure ? "password" : field.type}
                   placeholder={field.placeholder}
+                  color={btnStyle.color ? btnStyle.color : "primary"}
                   margin="normal"
                   rows={5}
                   fullWidth
@@ -126,6 +137,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
                   {...register(name)}
                   disabled={field.disabled}
                   label={field.label}
+                  color={btnStyle.color ? btnStyle.color : "primary"}
                   type={field.secure ? "password" : field.type}
                   placeholder={field.placeholder}
                   margin="normal"
@@ -137,7 +149,7 @@ const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
         {button && (
           <Button
             variant="contained"
-            color="primary"
+            color={btnStyle.color ? btnStyle.color : "primary"}
             size="large"
             type="submit"
             onClick={handleSubmit(onSubmit)}
