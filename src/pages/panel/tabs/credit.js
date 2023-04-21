@@ -56,7 +56,11 @@ const CreditTab = () => {
         color="primary"
         content={
           <Box>
-            <Form name="currentCredits" def={user} />
+            <Form
+              name="currentCredits"
+              def={user}
+              btnStyle={{ color: "primary" }}
+            />
             <br />
             <Button
               variant="contained"
@@ -80,7 +84,7 @@ const CreditTab = () => {
             name="buyCredits"
             button="Continue"
             callback={buyCredits}
-            btnStyle={{ fullWidth: false, disabled: false }}
+            btnStyle={{ fullWidth: false, disabled: false, color: "primary" }}
           />
         </DialogContent>
       </Dialog>

@@ -133,26 +133,13 @@ const SettingsTab = () => {
       <TwoInRow
         title="Change password"
         details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-        color="primary"
+        color="error"
         content={
           <Form
             name="changePassword"
             callback={changePassword}
             button="Change password"
-            btnStyle={{ fullWidth: false, disabled: false }}
-          />
-        }
-      />
-      <TwoInRow
-        title="Regenrate access token"
-        details="You can re-generate your access token for times that your access token is spoiled or any reason."
-        color="error"
-        content={
-          <Form
-            name="regenerateAccessToken"
-            callback={regenerateAccessToken}
-            button="Regenerate"
-            btnStyle={{ fullWidth: false, disabled: false }}
+            btnStyle={{ fullWidth: false, disabled: false, color: "error" }}
           />
         }
       />
@@ -166,7 +153,7 @@ const SettingsTab = () => {
               name="deleteAcount"
               callback={deleteCallback}
               button="Delete my account"
-              btnStyle={{ fullWidth: false, disabled: false }}
+              btnStyle={{ fullWidth: false, disabled: false, color: "error" }}
             />
           </Box>
         }

@@ -10,8 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   IconButton,
-  Button,
-  Badge,
+  Chip,
 } from "@mui/material";
 
 import { CopyAll } from "@mui/icons-material";
@@ -68,9 +67,8 @@ const ServicesTab = () => {
   };
 
   const updateService = async (callback) => {
-    console.log(callback);
     try {
-      await API.patch(`services/${selectedSerice._id}`, callback);
+      await API.patch(`services/${selectedService._id}`, callback);
 
       closeModals();
       getData();
@@ -190,12 +188,13 @@ const ServicesTab = () => {
         <DialogContent>
           <DialogContentText>
             Are you sure to delete this service? Write{" "}
-            <Badge>{selectedService.serId}</Badge> in the field below.
+            <Chip label={selectedService.serId} color="error" size="medium" />{" "}
+            in the field below.
           </DialogContentText>
           <Form
             name="deleteService"
             callback={deleteService}
-            btnStyle={{ fullWidth: false, disabled: false }}
+            btnStyle={{ fullWidth: false, disabled: false, color: "error" }}
             button="Delete"
           />
         </DialogContent>

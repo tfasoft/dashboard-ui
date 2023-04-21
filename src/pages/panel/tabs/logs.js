@@ -1,11 +1,21 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-import { Box, colors } from "@mui/material";
+import {
+  Box,
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Chip,
+} from "@mui/material";
 
-import { Line } from "react-chartjs-2";
-import Chart from "chart.js/auto";
+import { CopyAll } from "@mui/icons-material";
 
+import { Form, Table } from "@/components";
 import API from "@/api";
 
 const AnalyticsTab = () => {
@@ -22,7 +32,7 @@ const AnalyticsTab = () => {
 
   const getData = async () => {
     try {
-      const { data } = await API.get(`users/analytics/${user._id}`);
+      const { data } = await API.get(`users/logs/${user._id}`);
 
       setLogs(data);
     } catch (error) {
@@ -34,23 +44,9 @@ const AnalyticsTab = () => {
     getData();
   }, []);
 
-  const data = {
-    labels: Object.keys(logs).map((key) => key),
-    datasets: [
-      {
-        label: "Successful logins",
-        data: Object.values(logs).map((value) => value.length),
-        fill: true,
-        borderColor: colors.green[500],
-        backgroundColor: colors.green[50],
-        tension: 1,
-      },
-    ],
-  };
-
   return (
     <Box>
-      <Line data={data} />
+      <Table table="authLogs" data={logs} />
     </Box>
   );
 };

@@ -12,12 +12,14 @@ import {
   AccountTree,
   BarChart,
   AttachMoney,
+  Checklist,
 } from "@mui/icons-material";
 
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import ServicesTab from "./tabs/services";
 import AnalyticsTab from "./tabs/analytics";
+import LogsTab from "./tabs/logs";
 import CreditTab from "./tabs/credit";
 
 const Panel = () => {
@@ -57,9 +59,14 @@ const Panel = () => {
         value: "4",
       },
       {
+        label: "Logs",
+        icon: <Checklist />,
+        value: "5",
+      },
+      {
         label: "Credit",
         icon: <AttachMoney />,
-        value: "5",
+        value: "6",
       },
     ],
     panels: [
@@ -80,8 +87,12 @@ const Panel = () => {
         value: "4",
       },
       {
-        component: <CreditTab />,
+        component: <LogsTab />,
         value: "5",
+      },
+      {
+        component: <CreditTab />,
+        value: "6",
       },
     ],
   };
