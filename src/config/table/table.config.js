@@ -1,10 +1,12 @@
 const tables = {
-  blogs: {
-    title: "List of blogs",
+  services: {
+    title: "List of services",
     fields: {
-      title: "Title",
-      short: "Short",
-      delete: "Delete",
+      name: "Service name",
+      serId: "Service identifier",
+      createdAt: "Created at",
+      update: "Update service",
+      delete: "Delete service",
     },
   },
 };

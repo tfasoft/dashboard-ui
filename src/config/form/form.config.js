@@ -32,6 +32,12 @@ const forms = {
       placeholder: "Enter your phone number",
       secure: false,
     },
+    companyName: {
+      type: "text",
+      label: "Company name",
+      placeholder: "Enter comapny name",
+      secure: false,
+    },
     username: {
       type: "text",
       label: "Username",
@@ -50,6 +56,12 @@ const forms = {
       type: "text",
       label: "Name",
       placeholder: "Enter Name",
+      secure: false,
+    },
+    companyName: {
+      type: "text",
+      label: "Company name",
+      placeholder: "Enter comapny name",
       secure: false,
     },
   },
@@ -74,7 +86,7 @@ const forms = {
     },
   },
   accessToken: {
-    access_token: {
+    accessToken: {
       type: "text",
       label: "Access token",
       placeholder: "Here is your access token",
@@ -147,6 +159,25 @@ const forms = {
       type: "number",
       label: "Credits",
       placeholder: "Write how many credits you want",
+    },
+  },
+  createService: {
+    name: {
+      type: "text",
+      label: "Name",
+      placeholder: "Enter your service name",
+    },
+    serId: {
+      type: "text",
+      label: "Service identifier",
+      placeholder: "Enter your service identifier",
+    },
+  },
+  deleteService: {
+    serId: {
+      type: "text",
+      label: "Service identifier",
+      placeholder: "Enter your service identifier",
     },
   },
 };
