@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Box, Button, Alert, Snackbar } from "@mui/material";
+import {
+  Box,
+  Button,
+  Alert,
+  Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material";
 
 import { TwoInRow, Form } from "@/components";
 import API from "@/api";
@@ -68,6 +78,28 @@ const SettingsTab = () => {
     }
   };
 
+  // Confirm delete
+  const [openConfirm, setOpenConfirm] = useState(false);
+
+  const deleteCallback = (callback) => {
+    const { agreed, password } = callback;
+
+    if (agreed && user.password === md5(password)) {
+      setOpenConfirm(true);
+    } else {
+      createSnack("Check data again", "error");
+    }
+  };
+
+  const deleteAccount = async (callback) => {
+    try {
+      await API.delete(`users/${user._id}`);
+
+      dispatch(unsetToken());
+      dispatch(unsetUser());
+    } catch (error) {}
+  };
+
   return (
     <Box>
       <TwoInRow
@@ -77,9 +109,7 @@ const SettingsTab = () => {
         content={
           <Form
             name="changeName"
-            def={{
-              name: user.name,
-            }}
+            def={user}
             callback={update}
             button="Change name"
             btnStyle={{ fullWidth: false, disabled: false }}
@@ -127,6 +157,21 @@ const SettingsTab = () => {
         }
       />
       <TwoInRow
+        title="Delete account"
+        details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        color="error"
+        content={
+          <Box>
+            <Form
+              name="deleteAcount"
+              callback={deleteCallback}
+              button="Delete my account"
+              btnStyle={{ fullWidth: false, disabled: false }}
+            />
+          </Box>
+        }
+      />
+      <TwoInRow
         title="Logout"
         details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
         color="error"
@@ -147,6 +192,20 @@ const SettingsTab = () => {
           </Box>
         }
       />
+
+      <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
+        <DialogTitle>Confirm delete account?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Do you confirm that you want to delete your account?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="text" color="error" onClick={() => deleteAccount()}>
+            I confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={openSnack}

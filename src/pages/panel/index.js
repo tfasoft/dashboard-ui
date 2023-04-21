@@ -9,14 +9,14 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Home,
   Settings,
-  Security,
+  AccountTree,
   BarChart,
   AttachMoney,
 } from "@mui/icons-material";
 
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
-import AccountTab from "./tabs/account";
+import ServicesTab from "./tabs/services";
 import AnalyticsTab from "./tabs/analytics";
 import CreditTab from "./tabs/credit";
 
@@ -47,8 +47,8 @@ const Panel = () => {
         value: "2",
       },
       {
-        label: "Account",
-        icon: <Security />,
+        label: "Services",
+        icon: <AccountTree />,
         value: "3",
       },
       {
@@ -72,7 +72,7 @@ const Panel = () => {
         value: "2",
       },
       {
-        component: <AccountTab />,
+        component: <ServicesTab />,
         value: "3",
       },
       {
