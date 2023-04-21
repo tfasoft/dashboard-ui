@@ -123,6 +123,18 @@ const forms = {
       label: "I agree with deleting my account",
     },
   },
+  regenerateAccessToken: {
+    password: {
+      type: "text",
+      label: "Password",
+      placeholder: "Enter password",
+      secure: true,
+    },
+    agreed: {
+      type: "checkbox",
+      label: "I agree with regenerating access token",
+    },
+  },
   currentCredits: {
     credits: {
       type: "text",

@@ -9,6 +9,8 @@ import API from "@/api";
 import { unsetToken } from "@/redux/actions/token";
 import { unsetUser } from "@/redux/actions/user";
 
+import md5 from "md5";
+
 const SettingsTab = () => {
   const user = useSelector((state) => state.user);
 
@@ -43,6 +45,26 @@ const SettingsTab = () => {
       createSnack(result.data.message, "success");
     } catch (error) {
       createSnack(error.response.data.message, "error");
+    }
+  };
+
+  const regenerateAccessToken = async (callback) => {
+    const { agreed, password } = callback;
+
+    if (agreed) {
+      if (user.password === md5(password)) {
+        try {
+          const result = await API.get(`users/access/${user._id}`);
+
+          createSnack(result.data.message, "success");
+        } catch (error) {
+          createSnack(error.response.data.message, "error");
+        }
+      } else {
+        createSnack("Wrong password", "error");
+      }
+    } else {
+      createSnack("First agree the rules!", "error");
     }
   };
 
@@ -87,6 +109,19 @@ const SettingsTab = () => {
             name="changePassword"
             callback={changePassword}
             button="Change password"
+            btnStyle={{ fullWidth: false, disabled: false }}
+          />
+        }
+      />
+      <TwoInRow
+        title="Regenrate access token"
+        details="You can re-generate your access token for times that your access token is spoiled or any reason."
+        color="error"
+        content={
+          <Form
+            name="regenerateAccessToken"
+            callback={regenerateAccessToken}
+            button="Regenerate"
             btnStyle={{ fullWidth: false, disabled: false }}
           />
         }
