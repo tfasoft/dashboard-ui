@@ -20,6 +20,18 @@ const forms = {
       placeholder: "Enter Name",
       secure: false,
     },
+    email: {
+      type: "text",
+      label: "Email",
+      placeholder: "Enter email",
+      secure: false,
+    },
+    phoneNumber: {
+      type: "text",
+      label: "Phone number",
+      placeholder: "Enter your phone number",
+      secure: false,
+    },
     username: {
       type: "text",
       label: "Username",
@@ -41,7 +53,19 @@ const forms = {
       secure: false,
     },
   },
-  changeUsername: {
+  changeCommon: {
+    email: {
+      type: "text",
+      label: "Email",
+      placeholder: "Enter email",
+      secure: false,
+    },
+    phoneNumber: {
+      type: "text",
+      label: "Phone number",
+      placeholder: "Enter your phone number",
+      secure: false,
+    },
     username: {
       type: "text",
       label: "Username",

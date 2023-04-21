@@ -65,17 +65,15 @@ const SettingsTab = () => {
         }
       />
       <TwoInRow
-        title="Change username"
+        title="Change common data"
         details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
         color="primary"
         content={
           <Form
-            name="changeUsername"
-            def={{
-              username: user.username,
-            }}
+            name="changeCommon"
+            def={user}
             callback={update}
-            button="Change username"
+            button="Change common data"
             btnStyle={{ fullWidth: false, disabled: false }}
           />
         }
