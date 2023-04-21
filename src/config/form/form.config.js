@@ -99,6 +99,20 @@ const forms = {
       label: "I agree with deleting my account",
     },
   },
+  currentCredits: {
+    credits: {
+      type: "text",
+      label: "Credits",
+      disabled: true,
+    },
+  },
+  buyCredits: {
+    credits: {
+      type: "number",
+      label: "Credits",
+      placeholder: "Write how many credits you want",
+    },
+  },
 };
 
 export default forms;

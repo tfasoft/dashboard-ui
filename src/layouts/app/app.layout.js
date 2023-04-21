@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setUser } from "@/redux/actions/user";
 import API from "@/api";
+import { useEffect } from "react";
 
 const AppLayout = ({ children }) => {
   const { token, user } = useSelector((state) => state);
@@ -20,11 +21,12 @@ const AppLayout = ({ children }) => {
     }
   };
 
-  if (token) {
-    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-    // getData();
-  }
+  useEffect(() => {
+    if (token) {
+      API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      getData();
+    }
+  }, []);
 
   return <Container>{children}</Container>;
 };

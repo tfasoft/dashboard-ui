@@ -1,29 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 import { Box, Tab } from "@mui/material";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 
-import { Home, Settings, Security, BarChart } from "@mui/icons-material";
-
-import { withAuth } from "@/middlewares";
+import {
+  Home,
+  Settings,
+  Security,
+  BarChart,
+  AttachMoney,
+} from "@mui/icons-material";
 
 import HomeTab from "./tabs/home";
 import SettingsTab from "./tabs/settings";
 import AccountTab from "./tabs/account";
 import AnalyticsTab from "./tabs/analytics";
+import CreditTab from "./tabs/credit";
 
 const Panel = () => {
+  const history = useRouter();
+
   const [tab, setTab] = useState("1");
   const changeTab = (event, newValue) => {
     setTab(newValue);
   };
 
+  const { token } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (!token) history.push("/auth");
+  }, [token]);
+
   const manageTabs = {
     tabs: [
       {
         label: "Home",
-        icons: <Home />,
+        icon: <Home />,
         value: "1",
       },
       {
@@ -40,6 +55,11 @@ const Panel = () => {
         label: "Analytics",
         icon: <BarChart />,
         value: "4",
+      },
+      {
+        label: "Credit",
+        icon: <AttachMoney />,
+        value: "5",
       },
     ],
     panels: [
@@ -59,38 +79,40 @@ const Panel = () => {
         component: <AnalyticsTab />,
         value: "4",
       },
+      {
+        component: <CreditTab />,
+        value: "5",
+      },
     ],
   };
 
   return (
-    <withAuth>
-      <Box
-        sx={{
-          marginTop: "1rem",
-        }}
-      >
-        <TabContext value={tab}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList onChange={changeTab} variant="scrollable">
-              {manageTabs.tabs.map((tab) => (
-                <Tab
-                  key={`Tab-${tab.value}`}
-                  label={tab.label}
-                  icon={tab.icon}
-                  iconPosition="start"
-                  value={tab.value}
-                />
-              ))}
-            </TabList>
-          </Box>
-          {manageTabs.panels.map((panel) => (
-            <TabPanel key={`Panel-${panel.value}`} value={panel.value}>
-              {panel.component}
-            </TabPanel>
-          ))}
-        </TabContext>
-      </Box>
-    </withAuth>
+    <Box
+      sx={{
+        marginTop: "1rem",
+      }}
+    >
+      <TabContext value={tab}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList onChange={changeTab} variant="scrollable">
+            {manageTabs.tabs.map((tab) => (
+              <Tab
+                key={`Tab-${tab.value}`}
+                label={tab.label}
+                icon={tab.icon}
+                iconPosition="start"
+                value={tab.value}
+              />
+            ))}
+          </TabList>
+        </Box>
+        {manageTabs.panels.map((panel) => (
+          <TabPanel key={`Panel-${panel.value}`} value={panel.value}>
+            {panel.component}
+          </TabPanel>
+        ))}
+      </TabContext>
+    </Box>
   );
 };
 
