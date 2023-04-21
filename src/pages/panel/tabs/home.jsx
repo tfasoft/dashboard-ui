@@ -1,13 +1,32 @@
 import { useSelector } from "react-redux";
 
-import { Box, Card, CardContent, CardHeader, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+} from "@mui/material";
 
 import { Security, Settings, CopyAll } from "@mui/icons-material";
 
 import { Masonry } from "@mui/lab";
 
+import API from "@/api";
+
 const HomeTab = () => {
   const user = useSelector((state) => state.user);
+
+  const sendAgain = async () => {
+    try {
+      const { data } = await API.post("activation/send", { user: user._id });
+
+      console.log(data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 
   return (
     <Box>
@@ -58,24 +77,40 @@ const HomeTab = () => {
           <Card
             variant="outlined"
             sx={{
-              borderColor: "primary.main",
+              borderColor: user.active ? "success.main" : "error.main",
             }}
           >
             <CardHeader
-              title="Change theme"
-              subheader={<Typography color="error">New update!</Typography>}
+              title="Account activation"
               sx={{
-                color: "primary.main",
+                color: user.active ? "success.main" : "error.main",
               }}
             />
             <CardContent>
-              <Typography color="text.secondary" paragraph>
-                Now, changing theme is available in{" "}
-                <Typography component="span" color="primary">
-                  <Settings /> Settings
-                </Typography>{" "}
-                tab.
+              <Typography
+                color={user.active ? "success.main" : "error.main"}
+                paragraph
+              >
+                You account is {user.active ? "is" : "not"} active!
               </Typography>
+              {!user.active && (
+                <Box>
+                  <Typography color="error" gutterBottom>
+                    Please check your email please or tap to send the activation
+                    link again.
+                  </Typography>
+                  <br />
+                  <Button
+                    variant="contained"
+                    color="error"
+                    size="large"
+                    onClick={sendAgain}
+                    disableElevation
+                  >
+                    Send activation link again
+                  </Button>
+                </Box>
+              )}
             </CardContent>
           </Card>
         </Box>
