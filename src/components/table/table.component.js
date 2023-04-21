@@ -9,15 +9,18 @@ import {
   TableBody,
   IconButton,
   Typography,
+  Button,
+  TextField,
+  Pagination,
 } from "@mui/material";
 
-import { Delete } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 
 import { tables } from "@/config";
 
 import { useEffect, useState } from "react";
 
-const TableComponent = ({ table, data, del, upd }) => {
+const TableComponent = ({ table, data, del, upd, add, addText }) => {
   const tbl = tables[table];
 
   const [page, setPage] = useState(1);
@@ -34,9 +37,24 @@ const TableComponent = ({ table, data, del, upd }) => {
       data.map(
         (d, index) =>
           (d["delete"] = (
-            <IconButton onClick={() => del(d._id)}>
-              <Delete color="error" />
-            </IconButton>
+            <Box sx={{ w: "100%", textAlign: "center" }}>
+              <IconButton key={`Del-${index}`} onClick={() => del(d._id)}>
+                <Delete color="error" />
+              </IconButton>
+            </Box>
+          ))
+      );
+    }
+
+    if (upd) {
+      data.map(
+        (d, index) =>
+          (d["update"] = (
+            <Box sx={{ w: "100%", textAlign: "center" }}>
+              <IconButton key={`Upd-${index}`} onClick={() => upd(d._id)}>
+                <Edit color="info" />
+              </IconButton>
+            </Box>
           ))
       );
     }
@@ -45,24 +63,37 @@ const TableComponent = ({ table, data, del, upd }) => {
   }, [data, page, rowsPerPage]);
 
   const renderSwitch = (d, i) => {
-    switch (table) {
+    console.log(d, i);
+    switch (i) {
+      case "createdAt":
+        const td = new Date(d[i]);
+
+        return `${td.getFullYear()}/${td.getMonth()}/${td.getDay()} ${td.getHours()}:${td.getMinutes()}`;
       default:
         return d[i];
     }
   };
 
-  const onclickSwitch = (data) => {
-    switch (table) {
-      default:
-        return null;
-    }
-  };
-
   return data.length > 0 ? (
     <Box>
-      <Typography fontWeight={600} color="primary" fontSize={40} gutterBottom>
-        {tbl.title}
-      </Typography>
+      <Box
+        sx={{
+          height: "100%",
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography fontWeight={600} color="primary" fontSize={40}>
+          {tbl.title}
+        </Typography>
+        {add && (
+          <Button onClick={add} variant="contained" disableElevation>
+            {addText}
+          </Button>
+        )}
+      </Box>
+      {add && <br />}
       <TableContainer
         variant="outlined"
         sx={{ borderColor: "primary.main", w: "100%" }}
@@ -71,8 +102,17 @@ const TableComponent = ({ table, data, del, upd }) => {
         <Table id={table}>
           <TableHead>
             <TableRow sx={{ backgroundColor: "primary.main" }}>
-              {Object.values(tbl.fields).map((item) => (
-                <TableCell sx={{ color: "white" }} key={item} head>
+              {Object.entries(tbl.fields).map(([key, item]) => (
+                <TableCell
+                  sx={{
+                    color: "white",
+                    textAlign: ["delete", "update"].includes(key)
+                      ? "center"
+                      : "left",
+                  }}
+                  key={item}
+                  head
+                >
                   {item}
                 </TableCell>
               ))}
@@ -93,7 +133,7 @@ const TableComponent = ({ table, data, del, upd }) => {
             ))}
           </TableBody>
         </Table>
-        {/* <Box
+        <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -104,8 +144,8 @@ const TableComponent = ({ table, data, del, upd }) => {
         >
           <TextField
             variant="outlined"
-            placeholder="تعداد ردیف ها"
-            label="تعداد ردیف ها"
+            placeholder="Rows per a page"
+            label="Rows per a page"
             value={String(rowsPerPage)}
             onChange={(e) => setRowPerPage(Number(e.target.value))}
           />
@@ -117,7 +157,7 @@ const TableComponent = ({ table, data, del, upd }) => {
             page={page}
             onChange={handleChangePage}
           />
-        </Box> */}
+        </Box>
       </TableContainer>
     </Box>
   ) : (
