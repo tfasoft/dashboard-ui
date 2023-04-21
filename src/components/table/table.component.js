@@ -62,15 +62,26 @@ const TableComponent = ({ table, data, del, upd, add, addText }) => {
     setRenderRows(data.slice((page - 1) * rowsPerPage, page * rowsPerPage));
   }, [data, page, rowsPerPage]);
 
+  const recurcive = (d, k) => {
+    const v = d[k];
+
+    console.log(v);
+
+    return v;
+  };
+
   const renderSwitch = (d, i) => {
-    console.log(d, i);
+    const props = i.split(".");
+
+    const v = props.reduce((acc, prop) => acc[prop], d);
+
     switch (i) {
       case "createdAt":
         const td = new Date(d[i]);
 
         return `${td.getFullYear()}/${td.getMonth()}/${td.getDay()} ${td.getHours()}:${td.getMinutes()}`;
       default:
-        return d[i];
+        return v;
     }
   };
 
@@ -94,6 +105,7 @@ const TableComponent = ({ table, data, del, upd, add, addText }) => {
         )}
       </Box>
       {add && <br />}
+      {!add && <br />}
       <TableContainer
         variant="outlined"
         sx={{ borderColor: "primary.main", w: "100%" }}
