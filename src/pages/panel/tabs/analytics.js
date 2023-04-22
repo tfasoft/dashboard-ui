@@ -38,11 +38,11 @@ const AnalyticsTab = () => {
     labels: Object.keys(logs).map((key) => key),
     datasets: [
       {
-        label: "Successful logins",
+        label: "Logins",
         data: Object.values(logs).map((value) => value.length),
         fill: true,
-        borderColor: colors.green[500],
-        backgroundColor: colors.green[50],
+        borderColor: colors.blue[500],
+        backgroundColor: colors.blue[50],
         tension: 1,
       },
     ],
