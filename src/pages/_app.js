@@ -11,13 +11,13 @@ import { Provider } from "react-redux";
 export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Navbar />
-        <AppLayout>
+      <AppLayout>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Navbar />
           <Component {...pageProps} />
-        </AppLayout>
-      </ThemeProvider>
+        </ThemeProvider>
+      </AppLayout>
     </Provider>
   );
 }

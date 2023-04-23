@@ -20,7 +20,7 @@ import { tables } from "@/config";
 
 import { useEffect, useState } from "react";
 
-const TableComponent = ({ table, data, del, upd, add, addText }) => {
+const TableComponent = ({ table, data, del, upd, add, addText, clk }) => {
   const tbl = tables[table];
 
   const [page, setPage] = useState(1);
@@ -62,14 +62,6 @@ const TableComponent = ({ table, data, del, upd, add, addText }) => {
     setRenderRows(data.slice((page - 1) * rowsPerPage, page * rowsPerPage));
   }, [data, page, rowsPerPage]);
 
-  const recurcive = (d, k) => {
-    const v = d[k];
-
-    console.log(v);
-
-    return v;
-  };
-
   const renderSwitch = (d, i) => {
     const props = i.split(".");
 
@@ -95,7 +87,7 @@ const TableComponent = ({ table, data, del, upd, add, addText }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography fontWeight={600} color="primary" fontSize={40}>
+        <Typography fontWeight={500} color="primary" fontSize={25}>
           {tbl.title}
         </Typography>
         {add && (
@@ -134,6 +126,7 @@ const TableComponent = ({ table, data, del, upd, add, addText }) => {
             {renderRows.map((d) => (
               <TableRow
                 key={d}
+                onClick={() => clk && clk(d._id)}
                 sx={{
                   "&:hover": { cursor: "pointer", background: "#fafafa" },
                 }}

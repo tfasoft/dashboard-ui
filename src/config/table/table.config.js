@@ -5,8 +5,6 @@ const tables = {
       name: "Service name",
       serId: "Service identifier",
       createdAt: "Created at",
-      update: "Update service",
-      delete: "Delete service",
     },
   },
   authLogs: {

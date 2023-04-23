@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
+import { useRouter } from "next/router";
+
 import {
   Box,
   Snackbar,
@@ -9,11 +11,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogContentText,
-  IconButton,
-  Chip,
 } from "@mui/material";
-
-import { CopyAll } from "@mui/icons-material";
 
 import { Form, Table } from "@/components";
 import API from "@/api";
@@ -21,13 +19,11 @@ import API from "@/api";
 const ServicesTab = () => {
   const user = useSelector((state) => state.user);
 
+  const history = useRouter();
+
   const [services, setServices] = useState([]);
 
-  const [selectedService, setSelectedService] = useState({});
-
   const [openAdd, setOpenAdd] = useState(false);
-  const [openUpdate, setOpenUpdate] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
 
   // Snackbar
   const [openSnack, setOpenSnack] = useState(false);
@@ -51,32 +47,6 @@ const ServicesTab = () => {
     }
   };
 
-  const deleteService = async (callback) => {
-    if (callback.serId === selectedService.serId) {
-      try {
-        await API.delete(`services/${selectedService._id}`);
-
-        closeModals();
-        getData();
-      } catch (error) {
-        createSnack(error.response.data.message, "error");
-      }
-    } else {
-      createSnack("Enter the name correctly", "error");
-    }
-  };
-
-  const updateService = async (callback) => {
-    try {
-      await API.patch(`services/${selectedService._id}`, callback);
-
-      closeModals();
-      getData();
-    } catch (error) {
-      createSnack(error.response.data.message, "error");
-    }
-  };
-
   const addService = async (callback) => {
     callback.owner = user._id;
 
@@ -91,32 +61,8 @@ const ServicesTab = () => {
     }
   };
 
-  const setUpdate = async (id) => {
-    try {
-      const { data } = await API.get(`services/${id}`);
-
-      setOpenUpdate(true);
-      setSelectedService(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const setDelete = async (id) => {
-    try {
-      const { data } = await API.get(`services/${id}`);
-
-      setOpenDelete(true);
-      setSelectedService(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const closeModals = () => {
-    setOpenUpdate(false);
-    setOpenDelete(false);
-    setSelectedService({});
+  const click = (id) => {
+    history.push(`/panel/services/${id}`);
   };
 
   useEffect(() => {
@@ -128,8 +74,7 @@ const ServicesTab = () => {
       <Table
         table="services"
         data={services}
-        del={setDelete}
-        upd={setUpdate}
+        clk={click}
         add={() => setOpenAdd(true)}
         addText="Add new service"
       />
@@ -149,53 +94,6 @@ const ServicesTab = () => {
               fullWidth: false,
               disabled: false,
             }}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={openUpdate} onClose={closeModals}>
-        <DialogTitle>Update {selectedService.name}</DialogTitle>
-        <DialogContent>
-          <Box display="flex">
-            <Form name="accessToken" def={selectedService} />
-            <IconButton
-              color="primary"
-              onClick={() => {
-                navigator.clipboard.writeText(user.access_token);
-
-                createSnack("Access token copied", "info");
-              }}
-            >
-              <CopyAll />
-            </IconButton>
-          </Box>
-
-          <Form
-            name="createService"
-            callback={updateService}
-            def={selectedService}
-            button="Update service"
-            btnStyle={{
-              fullWidth: false,
-              disabled: false,
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={openDelete} onClose={closeModals}>
-        <DialogTitle>Confirm to delete service</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure to delete this service? Write{" "}
-            <Chip label={selectedService.serId} color="error" size="medium" />{" "}
-            in the field below.
-          </DialogContentText>
-          <Form
-            name="deleteService"
-            callback={deleteService}
-            btnStyle={{ fullWidth: false, disabled: false, color: "error" }}
-            button="Delete"
           />
         </DialogContent>
       </Dialog>

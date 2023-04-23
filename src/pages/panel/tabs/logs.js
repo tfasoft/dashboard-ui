@@ -1,21 +1,9 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-import {
-  Box,
-  Snackbar,
-  Alert,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-  Chip,
-} from "@mui/material";
+import { Box } from "@mui/material";
 
-import { CopyAll } from "@mui/icons-material";
-
-import { Form, Table } from "@/components";
+import { Table } from "@/components";
 import API from "@/api";
 
 const AnalyticsTab = () => {
