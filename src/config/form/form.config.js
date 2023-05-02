@@ -180,6 +180,19 @@ const forms = {
       placeholder: "Enter your service identifier",
     },
   },
+  activeDeactive: {
+    isActive: {
+      type: "checkbox",
+      label: "Active and deactive",
+    },
+  },
+  ipLimitation: {
+    ipLimit: {
+      type: "text",
+      label: "IP",
+      placeholder: "Enter the source IP",
+    },
+  },
 };
 
 export default forms;

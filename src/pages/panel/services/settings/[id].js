@@ -11,6 +11,8 @@ import {
   Button,
   Typography,
   IconButton,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 
 import { ArrowBack } from "@mui/icons-material";
@@ -73,6 +75,16 @@ const SettingsService = ({ error, service }) => {
     setOpenSnack(true);
   };
 
+  const regenerateToken = async () => {
+    try {
+      await API.get(`services/access/${service._id}`);
+
+      createSnack("Token generated", "success");
+    } catch (error) {
+      createSnack(error.response.data.message, "error");
+    }
+  };
+
   const deleteService = async (callback) => {
     if (callback.serId === service.serId) {
       try {
@@ -90,6 +102,8 @@ const SettingsService = ({ error, service }) => {
   const updateService = async (callback) => {
     try {
       await API.patch(`services/${service._id}`, callback);
+
+      history.reload();
 
       closeModals();
       getData();
@@ -130,6 +144,64 @@ const SettingsService = ({ error, service }) => {
                 disabled: false,
               }}
             />
+          </Box>
+        }
+      />
+      <TwoInRow
+        title="Limit IP"
+        details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        color="primary"
+        content={
+          <Box>
+            <Form
+              name="ipLimitation"
+              callback={updateService}
+              def={service}
+              button="Update IP limitation"
+              btnStyle={{
+                fullWidth: false,
+                disabled: false,
+              }}
+            />
+          </Box>
+        }
+      />
+      <TwoInRow
+        title="Service status"
+        details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        color="primary"
+        content={
+          <Box>
+            <FormControlLabel
+              control={
+                <Switch
+                  size="medium"
+                  checked={service.isActive}
+                  onChange={(e) =>
+                    updateService({ isActive: !service.isActive })
+                  }
+                />
+              }
+              label="Service enable"
+            />
+          </Box>
+        }
+      />
+      <TwoInRow
+        title="Re-Generate access token"
+        details="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        color="primary"
+        content={
+          <Box>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={regenerateToken}
+              disableElevation
+            >
+              Re-Generate
+            </Button>
           </Box>
         }
       />

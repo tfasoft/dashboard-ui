@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import { setUser } from "@/redux/actions/user";
 import API from "@/api";
-import { useEffect } from "react";
 
 const AppLayout = ({ children }) => {
   const { token, user } = useSelector((state) => state);
